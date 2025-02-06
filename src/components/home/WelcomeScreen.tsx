@@ -27,7 +27,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
         </h1>
 
         {/* Grid of Large Buttons */}
-        <div className="grid gap-4 w-[calc(100%-1rem)] max-w-md mx-auto">
+        <div className="grid gap-4 w-[90vw] sm:w-full max-w-md mx-auto">
           <Button
             onClick={() => onGetStarted()}
             className="flex flex-col items-start justify-center h-48 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 sm:p-8 rounded-xl w-full"
@@ -35,14 +35,6 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             <HandHeart className="h-12 w-12 sm:h-16 sm:w-16 mb-4 sm:mb-6 text-[#9b87f5]" />
             <span className="text-xl sm:text-2xl font-medium mb-2">Forgive a sin</span>
             <span className="text-sm sm:text-base text-gray-400">Seek absolution and find peace through virtual confession</span>
-          </Button>
-
-          <Button
-            className="flex flex-col items-start justify-center h-48 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 sm:p-8 rounded-xl w-full"
-          >
-            <MessageSquare className="h-12 w-12 sm:h-16 sm:w-16 mb-4 sm:mb-6 text-[#9b87f5]" />
-            <span className="text-xl sm:text-2xl font-medium mb-2">Chat with AI Priest</span>
-            <span className="text-sm sm:text-base text-gray-400">Seek guidance and spiritual advice</span>
           </Button>
         </div>
       </div>
@@ -53,4 +45,3 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
 };
 
 export default WelcomeScreen;
-
