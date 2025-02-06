@@ -5,6 +5,7 @@ import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import ConfessionFlow from "@/components/confession/ConfessionFlow";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [message, setMessage] = useState('');
@@ -23,19 +24,15 @@ const Index = () => {
     setMessage('');
 
     try {
-      const response = await fetch('${window.location.origin}/functions/v1/chat-with-ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: userMessage }),
+      const { data, error } = await supabase.functions.invoke('chat-with-ai', {
+        body: { message: userMessage },
       });
 
-      if (!response.ok) throw new Error('Failed to get response');
+      if (error) throw error;
       
-      const data = await response.json();
       setMessages(prev => [...prev, { text: data.response, isUser: false }]);
     } catch (error) {
+      console.error('Error sending message:', error);
       toast({
         title: "Error",
         description: "Failed to get response. Please try again.",
