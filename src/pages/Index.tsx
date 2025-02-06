@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import QuizQuestion from "@/components/forgive/QuizQuestion";
@@ -110,24 +109,15 @@ const Index = () => {
   const handleSubmitSin = async () => {
     setIsAnalyzing(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      const response = await fetch('/functions/v1/analyze-sin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session?.access_token}`
-        },
-        body: JSON.stringify({
+      const { data, error } = await supabase.functions.invoke('analyze-sin', {
+        body: {
           sinDescription: customDescription
-        })
+        }
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to analyze sin');
-      }
+      if (error) throw error;
 
-      const result = await response.json();
+      const result = data;
       setAnalysis(result);
 
       if (result.forgiveness_status === 'NEEDS_REFLECTION') {
@@ -140,6 +130,7 @@ const Index = () => {
         }, 3000);
       }
     } catch (error) {
+      console.error('Error:', error);
       toast({
         title: "Error",
         description: "Failed to analyze your confession. Please try again.",
