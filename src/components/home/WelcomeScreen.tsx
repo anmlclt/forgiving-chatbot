@@ -21,13 +21,13 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 px-4 sm:px-6 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8">
+      <div className="flex-1 px-2 sm:px-6 py-8">
+        <h1 className="text-4xl font-bold text-white mb-8 px-2">
           Welcome to Confess
         </h1>
 
         {/* Grid of Large Buttons */}
-        <div className="grid gap-4 max-w-md mx-auto w-full">
+        <div className="grid gap-4 w-[calc(100%-1rem)] max-w-md mx-auto">
           <Button
             onClick={() => onGetStarted()}
             className="flex flex-col items-start justify-center h-48 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 sm:p-8 rounded-xl w-full"
