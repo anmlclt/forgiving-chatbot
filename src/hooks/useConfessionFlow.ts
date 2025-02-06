@@ -49,6 +49,7 @@ export const useConfessionFlow = () => {
     try {
       const result = await analyzeSin(customDescription);
       setAnalysis(result);
+      console.log('Analysis result:', result);
 
       if (result.forgiveness_status === 'NEEDS_REFLECTION') {
         setShowKeepPraying(true);
@@ -73,6 +74,7 @@ export const useConfessionFlow = () => {
 
   const resetFlow = () => {
     setShowSuccess(false);
+    setShowKeepPraying(false);
     setCurrentQuizStep(0);
     setQuizAnswers({
       sinType: '',

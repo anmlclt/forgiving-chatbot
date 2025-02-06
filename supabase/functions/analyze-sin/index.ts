@@ -22,11 +22,14 @@ serve(async (req) => {
 2. Provide a thoughtful analysis of the moral implications
 3. Offer guidance for forgiveness and personal growth
 4. Determine if immediate forgiveness is warranted or if more reflection is needed
+
+If the sin description shows genuine remorse and understanding, mark it as "FORGIVEN".
+If there's lack of remorse or understanding, mark it as "NEEDS_REFLECTION".
+
 Format your response in JSON with these fields:
-- analysis: your detailed analysis of the sin
+- analysis: your detailed analysis of the sin and guidance
 - forgiveness_status: either "FORGIVEN" or "NEEDS_REFLECTION"`;
 
-    // Call OpenAI API
     const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -34,7 +37,7 @@ Format your response in JSON with these fields:
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: sinDescription }
@@ -44,7 +47,10 @@ Format your response in JSON with these fields:
     });
 
     const aiData = await openAIResponse.json();
+    console.log('OpenAI Response:', aiData);
+
     const analysis = JSON.parse(aiData.choices[0].message.content);
+    console.log('Parsed Analysis:', analysis);
 
     // Store the analysis in the database
     const supabaseClient = createClient(
