@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 interface KeepPrayingScreenProps {
   onChatClick: () => void;
   onReturn: () => void;
+  analysis?: string;
 }
 
-const KeepPrayingScreen = ({ onChatClick, onReturn }: KeepPrayingScreenProps) => {
+const KeepPrayingScreen = ({ onChatClick, onReturn, analysis }: KeepPrayingScreenProps) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-6 animate-fade-in">
       <div className="w-24 h-24 mb-8">
@@ -20,6 +21,11 @@ const KeepPrayingScreen = ({ onChatClick, onReturn }: KeepPrayingScreenProps) =>
       <h2 className="text-2xl font-bold text-white mb-4 text-center">
         Continue Your Journey
       </h2>
+      {analysis && (
+        <p className="text-gray-300 text-center mb-4 max-w-md italic">
+          "{analysis}"
+        </p>
+      )}
       <p className="text-gray-300 text-center mb-8 max-w-md">
         True forgiveness requires sincere regret. Take time to reflect on your actions and their impact. Keep praying and examining your conscience.
       </p>

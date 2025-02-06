@@ -51,6 +51,7 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
           setShowKeepPraying(false);
           resetFlow();
         }}
+        analysis={analysis?.analysis}
       />
     );
   }

@@ -16,7 +16,6 @@ serve(async (req) => {
   try {
     const { sinDescription } = await req.json();
 
-    // Create system prompt for analyzing sins
     const systemPrompt = `You are a wise and compassionate spiritual advisor. Your role is to:
 1. Analyze the described sin with empathy and understanding
 2. Provide a thoughtful analysis of the moral implications
@@ -26,8 +25,10 @@ serve(async (req) => {
 If the sin description shows genuine remorse and understanding, mark it as "FORGIVEN".
 If there's lack of remorse or understanding, mark it as "NEEDS_REFLECTION".
 
+IMPORTANT: Keep your analysis under 200 characters.
+
 Format your response in JSON with these fields:
-- analysis: your detailed analysis of the sin and guidance
+- analysis: your detailed analysis of the sin and guidance (max 200 chars)
 - forgiveness_status: either "FORGIVEN" or "NEEDS_REFLECTION"`;
 
     const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -51,6 +52,11 @@ Format your response in JSON with these fields:
 
     const analysis = JSON.parse(aiData.choices[0].message.content);
     console.log('Parsed Analysis:', analysis);
+
+    // Ensure analysis is not longer than 200 characters
+    if (analysis.analysis.length > 200) {
+      analysis.analysis = analysis.analysis.substring(0, 197) + '...';
+    }
 
     // Store the analysis in the database
     const supabaseClient = createClient(
