@@ -3,8 +3,9 @@ import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Church, SendHorizontal } from "lucide-react";
+import { ArrowLeft, SendHorizontal } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface ChatMessage {
   text: string;
@@ -39,10 +40,17 @@ const ChatInterface = ({ messages, message, onMessageChange, onSendMessage, onBa
             onClick={onBack}
             className="text-white"
           >
-            <Church className="h-6 w-6" />
+            <ArrowLeft className="h-6 w-6" />
           </Button>
+          <Avatar className="h-10 w-10">
+            <AvatarImage 
+              src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/3a06963b-f1e0-486d-8b7c-3d0883a6c156.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvM2EwNjk2M2ItZjFlMC00ODZkLThiN2MtM2QwODgzYTZjMTU2LndlYnAiLCJpYXQiOjE3Mzg4MTkzMDksImV4cCI6MTc3MDM1NTMwOX0.buDqnFVoeWYaWbV6sXAb6i8aKJU4iPeavXYzLlJK4mI" 
+              alt="Father James"
+            />
+            <AvatarFallback>FJ</AvatarFallback>
+          </Avatar>
           <div>
-            <h1 className="text-lg font-semibold text-white">Religious Guidance</h1>
+            <h1 className="text-lg font-semibold text-white">Father James</h1>
             <p className="text-sm text-green-500">online</p>
           </div>
         </div>
