@@ -1,4 +1,3 @@
-
 import { useConfessionFlow } from "@/hooks/useConfessionFlow";
 import QuizQuestion from "@/components/forgive/QuizQuestion";
 import CustomDescription from "@/components/forgive/CustomDescription";
@@ -60,7 +59,7 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
     return (
       <>
         {renderTopNavbar()}
-        <Card className="bg-[#3f3f3f] backdrop-blur">
+        <Card className="bg-[#3f3f3f] backdrop-blur border-0">
           <CardContent className="pt-6 text-center space-y-6">
             <img 
               src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/bible.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYmlibGUuc3ZnIiwiaWF0IjoxNzM4ODYwMjMyLCJleHAiOjE3NzAzOTYyMzJ9.MnM6EpyMRAKdNegi0ohGv6yRuqGxQJrwtA5zHt7AFGA"
@@ -149,4 +148,3 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
 };
 
 export default ConfessionFlow;
-
