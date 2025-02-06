@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
 import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
+import AllChatsScreen from "@/components/chat/AllChatsScreen";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import ConfessionFlow from "@/components/confession/ConfessionFlow";
@@ -20,6 +21,7 @@ const Index = () => {
   const [showChatHome, setShowChatHome] = useState(true);
   const { toast } = useToast();
   const { user } = useAuth();
+  const [showAllChats, setShowAllChats] = useState(false);
 
   const handleSendMessage = async (initialMessage?: string) => {
     const messageToSend = initialMessage || message;
@@ -85,6 +87,14 @@ const Index = () => {
     setActiveTab('home');
   };
 
+  const handleViewAllChats = () => {
+    setShowAllChats(true);
+  };
+
+  const handleBackFromAllChats = () => {
+    setShowAllChats(false);
+  };
+
   if (!user) {
     return <Navigate to="/auth" />;
   }
@@ -106,11 +116,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
       {activeTab === 'chat' ? (
-        showChatHome ? (
+        showAllChats ? (
+          <AllChatsScreen 
+            onBack={handleBackFromAllChats}
+            onChatSelect={handleSendMessage}
+          />
+        ) : showChatHome ? (
           <ChatHomeScreen 
             onStartChat={handleSendMessage} 
             messages={messages}
             onBack={handleNavigateToHome}
+            onViewAllChats={handleViewAllChats}
           />
         ) : (
           <ChatInterface

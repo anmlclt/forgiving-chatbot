@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, User, MessageSquare, Clock, Send } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,7 @@ interface ChatHomeScreenProps {
   onStartChat: (message: string) => void;
   messages: Array<{ text: string; isUser: boolean }>;
   onBack: () => void;
+  onViewAllChats: () => void;
 }
 
 interface ChatHistory {
@@ -21,7 +21,7 @@ interface ChatHistory {
   user_id?: string;
 }
 
-const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) => {
+const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatHomeScreenProps) => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
   const { user } = useAuth();
@@ -36,14 +36,13 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
         .eq('user_id', user.id)
         .eq('is_user_message', true)
         .order('created_at', { ascending: false })
-        .limit(5);
+        .limit(2);
 
       if (error) {
         console.error('Error fetching chat history:', error);
         return;
       }
 
-      // Only set unique messages based on content
       if (data) {
         const uniqueMessages = data.filter((message, index, self) =>
           index === self.findIndex((m) => m.message === message.message)
@@ -114,7 +113,11 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       <div className="mb-4">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-white text-lg font-medium">Recent history</h3>
-          <Button variant="ghost" className="text-[#6D5DE7]">
+          <Button 
+            variant="ghost" 
+            className="text-[#6D5DE7]"
+            onClick={onViewAllChats}
+          >
             See all
           </Button>
         </div>
@@ -126,7 +129,9 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
               onClick={() => onStartChat(chat.message)}
             >
               <div className="flex items-center text-white">
-                <Clock className="h-5 w-5 mr-3" />
+                <div className="bg-[#6D5DE7] w-8 h-8 rounded-full flex items-center justify-center mr-3">
+                  <MessageSquare className="h-4 w-4" />
+                </div>
                 <span className="text-sm line-clamp-1">{chat.message}</span>
               </div>
             </Card>
@@ -141,6 +146,11 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="bg-[#2A2F3C] border-none text-white placeholder-gray-400"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleSendMessage();
+              }
+            }}
           />
           <Button
             onClick={handleSendMessage}
