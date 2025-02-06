@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
 import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
@@ -7,6 +6,9 @@ import BottomNavigation from "@/components/navigation/BottomNavigation";
 import ConfessionFlow from "@/components/confession/ConfessionFlow";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/components/auth/AuthProvider";
+import { Navigate } from "react-router-dom";
+import ProfileSection from "@/components/profile/ProfileSection";
 
 const Index = () => {
   const [message, setMessage] = useState('');
@@ -17,6 +19,7 @@ const Index = () => {
   const [showWelcome, setShowWelcome] = useState(true);
   const [showChatHome, setShowChatHome] = useState(true);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   const handleSendMessage = async (initialMessage?: string) => {
     const messageToSend = initialMessage || message;
@@ -87,6 +90,10 @@ const Index = () => {
     setActiveTab('home');
   };
 
+  if (!user) {
+    return <Navigate to="/auth" />;
+  }
+
   if (showWelcome) {
     return (
       <WelcomeScreen 
@@ -119,6 +126,8 @@ const Index = () => {
             onBack={handleBack}
           />
         )
+      ) : activeTab === 'profile' ? (
+        <ProfileSection />
       ) : (
         <>
           <div className="flex-1 p-4 pb-20">
