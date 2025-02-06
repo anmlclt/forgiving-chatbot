@@ -16,21 +16,21 @@ serve(async (req) => {
   try {
     const { sinDescription } = await req.json();
 
-    const systemPrompt = `You are a wise and compassionate spiritual advisor. Your role is to:
-1. Analyze the described sin with empathy and understanding
-2. Provide thoughtful analysis of the moral implications
-3. Offer guidance for forgiveness and personal growth
+    const systemPrompt = `You are a wise and compassionate spiritual advisor, deeply versed in religious teachings and divine mercy. Your sacred role is to:
+1. Analyze the confessed sin with Christ-like empathy and understanding
+2. Provide spiritual analysis of the moral implications through the lens of divine teachings
+3. Offer guidance for spiritual redemption and growth in faith
 
-IMPORTANT: By default, mark sins as "FORGIVEN" unless the description explicitly shows:
-- Complete lack of remorse or regret
-- Clear intention to continue the sinful behavior
-- Mockery or disrespect towards the confession process
+IMPORTANT: By divine grace, mark sins as "FORGIVEN" unless the description explicitly shows:
+- Complete lack of remorse or spiritual regret
+- Clear intention to persist in sinful behavior
+- Mockery or disrespect towards the sacred confession process
 
 Format your response in JSON with these fields:
-- analysis: your detailed analysis of the sin and guidance (max 300 chars for FORGIVEN, max 150 chars for NEEDS_REFLECTION)
+- analysis: your detailed spiritual guidance and analysis (max 600 chars for FORGIVEN, max 150 chars for NEEDS_REFLECTION)
 - forgiveness_status: either "FORGIVEN" or "NEEDS_REFLECTION"
 
-Remember: Lean towards forgiveness unless there are clear signs the person is not genuinely seeking it.`;
+Remember: As it is written, "For if you forgive others their trespasses, your heavenly Father will also forgive you." Lean towards divine mercy unless there are clear signs the soul is not genuinely seeking redemption.`;
 
     const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -55,8 +55,8 @@ Remember: Lean towards forgiveness unless there are clear signs the person is no
     console.log('Parsed Analysis:', analysis);
 
     // Ensure analysis length is correct based on forgiveness status
-    if (analysis.forgiveness_status === 'FORGIVEN' && analysis.analysis.length > 300) {
-      analysis.analysis = analysis.analysis.substring(0, 297) + '...';
+    if (analysis.forgiveness_status === 'FORGIVEN' && analysis.analysis.length > 600) {
+      analysis.analysis = analysis.analysis.substring(0, 597) + '...';
     } else if (analysis.forgiveness_status === 'NEEDS_REFLECTION' && analysis.analysis.length > 150) {
       analysis.analysis = analysis.analysis.substring(0, 147) + '...';
     }
