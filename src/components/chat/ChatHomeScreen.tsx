@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, User, MessageSquare, MicIcon, SendIcon, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -24,11 +25,13 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
 
   useEffect(() => {
     const fetchChatHistory = async () => {
-      // Get distinct messages ordered by their latest occurrence
       const { data, error } = await supabase
         .from('chat_history')
         .select('*')
-        .order('created_at', { ascending: false });
+        .select('DISTINCT ON (message) *')
+        .order('message')
+        .order('created_at', { ascending: false })
+        .limit(5);
 
       if (error) {
         console.error('Error fetching chat history:', error);
@@ -36,19 +39,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       }
 
       if (data) {
-        // Create a Map to keep track of unique messages
-        // Using Map ensures we keep only the latest occurrence of each message
-        const uniqueMessages = new Map();
-        
-        data.forEach((chat) => {
-          if (!uniqueMessages.has(chat.message)) {
-            uniqueMessages.set(chat.message, chat);
-          }
-        });
-
-        // Convert Map values back to array and take first 5
-        const uniqueChats = Array.from(uniqueMessages.values()).slice(0, 5);
-        setChatHistory(uniqueChats);
+        setChatHistory(data);
       }
     };
 
