@@ -113,7 +113,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             <img 
               src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/priest.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvcHJpZXN0LnN2ZyIsImlhdCI6MTczODgyMjE3OSwiZXhwIjoxNzcwMzU4MTc5fQ.Y13Z1bL4-vas2Iwi_l1DZzzYQqU2BdgmX6jFopVwXJg"
               alt="Priest icon" 
-              className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(12%)_sepia(98%)_saturate(3795%)_hue-rotate(239deg)_brightness(106%)_contrast(109%)]"
+              className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(52%)_sepia(44%)_saturate(7048%)_hue-rotate(232deg)_brightness(87%)_contrast(93%)]"
             />
             <div className="text-left">
               <span className="text-lg font-medium block text-[#6C5DE7]">Chat with AI Priest</span>
@@ -148,3 +148,4 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
 };
 
 export default WelcomeScreen;
+
