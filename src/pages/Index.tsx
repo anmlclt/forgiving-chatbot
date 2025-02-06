@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Church, MessageSquare, User, Home, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -89,7 +88,7 @@ const Index = () => {
     setTimeout(() => {
       setShowCross(false);
       setShowSuccess(true);
-    }, 2000);
+    }, 3000); // Updated from 2000 to 3000ms
   };
 
   const renderForgiveContent = () => {
