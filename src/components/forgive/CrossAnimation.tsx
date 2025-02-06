@@ -12,12 +12,11 @@ const CrossAnimation = () => {
 
   return (
     <div className="fixed inset-0 bg-[#1A1F2C] flex flex-col items-center justify-center">
-      <div className="relative mb-8">
-        {/* Vertical bar - made longer */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-48 bg-[#F97316] animate-[pulse_2s_ease-in-out_infinite]" />
-        {/* Horizontal bar - made shorter */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-2 bg-[#F97316] animate-[pulse_2s_ease-in-out_infinite]" />
-      </div>
+      <img 
+        src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/hands.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvaGFuZHMuc3ZnIiwiaWF0IjoxNzM4ODA1NTgzLCJleHAiOjE3NzAzNDE1ODN9.4kV3hNdsljsPNkgyrBEJ7cftpqK0BwGzSUdlWlHZKbs"
+        alt="Praying hands"
+        className="w-48 h-48 mb-8 animate-[pulse_2s_ease-in-out_infinite]"
+      />
       <p className="text-gray-300 text-lg animate-pulse mt-8">
         Your request for forgiveness is being analyzed...
       </p>
