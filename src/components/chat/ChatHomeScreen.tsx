@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, User, MessageSquare, MicIcon, SendIcon, Clock } from 'lucide-react';
+import { ArrowLeft, User, MessageSquare, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -34,7 +34,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
         .from('chat_history')
         .select('*')
         .eq('user_id', user.id)
-        .eq('is_user_message', true) // Only fetch user messages
+        .eq('is_user_message', true)
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -43,8 +43,12 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
         return;
       }
 
+      // Only set unique messages based on content
       if (data) {
-        setChatHistory(data);
+        const uniqueMessages = data.filter((message, index, self) =>
+          index === self.findIndex((m) => m.message === message.message)
+        );
+        setChatHistory(uniqueMessages);
       }
     };
 
