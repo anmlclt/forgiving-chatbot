@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, User, MessageSquare, Clock } from 'lucide-react';
+import { ArrowLeft, User, MessageSquare, Clock, Send } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,7 @@ interface ChatHistory {
 }
 
 const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) => {
-  const [message, setMessage] = React.useState('');
+  const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
   const { user } = useAuth();
 
@@ -146,7 +146,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
             onClick={handleSendMessage}
             className="bg-[#6D5DE7] hover:bg-[#6D5DE7]/90 text-white rounded-full"
           >
-            <SendIcon className="h-5 w-5" />
+            <Send className="h-5 w-5" />
           </Button>
         </div>
       </div>
