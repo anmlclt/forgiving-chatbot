@@ -1,11 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, User, MessageSquare, Send } from 'lucide-react';
+import { ArrowLeft, MessageSquare, Send } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useProfile } from "@/hooks/useProfile";
 
 interface ChatHomeScreenProps {
   onStartChat: (message: string) => void;
@@ -26,6 +28,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
   const { user } = useAuth();
+  const { profile } = useProfile(user?.id);
 
   useEffect(() => {
     const fetchChatHistory = async () => {
@@ -76,9 +79,12 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <Button variant="ghost" className="text-white">
-          <User className="h-6 w-6" />
-        </Button>
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={profile?.avatar_url || undefined} alt="Profile" />
+          <AvatarFallback>
+            {user?.email?.charAt(0).toUpperCase() || '?'}
+          </AvatarFallback>
+        </Avatar>
       </div>
 
       <Card className="bg-[#6D5DE7] text-white p-6 rounded-xl mb-6">
