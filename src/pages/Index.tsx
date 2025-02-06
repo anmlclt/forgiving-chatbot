@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
 import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
@@ -23,16 +24,16 @@ const Index = () => {
 
   const handleSendMessage = async (initialMessage?: string) => {
     const messageToSend = initialMessage || message;
-    if (!messageToSend.trim()) return;
+    if (!messageToSend.trim() || !user) return;
     
     setMessages(prev => [...prev, { text: messageToSend, isUser: true }]);
     setMessage('');
     setShowChatHome(false);
 
     try {
-      // Store the user's message in chat history
+      // Store the user's message in chat history with user_id
       await supabase.from('chat_history').insert([
-        { message: messageToSend, is_user_message: true }
+        { message: messageToSend, is_user_message: true, user_id: user.id }
       ]);
 
       const { data, error } = await supabase.functions.invoke('chat-with-ai', {
@@ -44,9 +45,9 @@ const Index = () => {
       const aiResponse = data.response;
       setMessages(prev => [...prev, { text: aiResponse, isUser: false }]);
 
-      // Store the AI's response in chat history
+      // Store the AI's response in chat history with user_id
       await supabase.from('chat_history').insert([
-        { message: aiResponse, is_user_message: false }
+        { message: aiResponse, is_user_message: false, user_id: user.id }
       ]);
 
     } catch (error) {

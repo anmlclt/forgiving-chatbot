@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 interface ChatHomeScreenProps {
   onStartChat: (message: string) => void;
@@ -17,17 +18,22 @@ interface ChatHistory {
   message: string;
   created_at: string;
   is_user_message: boolean;
+  user_id?: string;
 }
 
 const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) => {
   const [message, setMessage] = React.useState('');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchChatHistory = async () => {
+      if (!user) return;
+
       const { data, error } = await supabase
         .from('chat_history')
         .select('*')
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -53,7 +59,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
     };
 
     fetchChatHistory();
-  }, []);
+  }, [user]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
