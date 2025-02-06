@@ -9,7 +9,7 @@ interface BottomNavigationProps {
 
 const BottomNavigation = ({ activeTab, onTabChange }: BottomNavigationProps) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#1c20fe] h-16 flex items-center justify-around px-4">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#6C5DE7] h-16 flex items-center justify-around px-4">
       <Button
         variant="ghost"
         className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-white' : 'text-white/70'}`}
