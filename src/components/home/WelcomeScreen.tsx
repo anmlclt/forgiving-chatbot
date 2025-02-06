@@ -66,3 +66,4 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
 };
 
 export default WelcomeScreen;
+
