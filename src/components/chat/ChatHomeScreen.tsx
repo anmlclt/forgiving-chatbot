@@ -67,7 +67,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
   ];
 
   return (
-    <div className="min-h-screen bg-[#1A1F2C] p-4">
+    <div className="min-h-screen bg-[#242424] p-4">
       <div className="flex justify-between items-center mb-6">
         <Button 
           variant="ghost" 
@@ -137,7 +137,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#1A1F2C]">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#242424]">
         <div className="flex gap-2">
           <Input
             placeholder="Enter a prompt here..."
