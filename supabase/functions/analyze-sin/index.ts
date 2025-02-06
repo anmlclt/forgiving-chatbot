@@ -44,7 +44,7 @@ Remember: As our Lord Jesus Christ teaches, "Blessed are the merciful, for they 
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4', // Fixed typo in model name
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: sinDescription }
