@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import QuizQuestion from "@/components/forgive/QuizQuestion";
@@ -43,9 +42,9 @@ const Index = () => {
     }, 1000);
   };
 
-  const handleGetStarted = () => {
+  const handleGetStarted = (screen: string = 'forgive') => {
     setShowWelcome(false);
-    setActiveTab('forgive');
+    setActiveTab(screen);
   };
 
   const handleTabChange = (tab: string) => {
