@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Menu, User, Pen, ImageIcon, History, MessageSquare, MicIcon, SendIcon } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -105,3 +106,4 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
 };
 
 export default ChatHomeScreen;
+
