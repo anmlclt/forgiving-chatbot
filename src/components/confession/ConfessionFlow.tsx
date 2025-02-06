@@ -60,17 +60,22 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
     return (
       <>
         {renderTopNavbar()}
-        <Card className="bg-card/50 backdrop-blur">
+        <Card className="bg-[#3f3f3f] backdrop-blur">
           <CardContent className="pt-6 text-center space-y-6">
-            <h2 className="text-2xl font-semibold mb-4">Before You Begin</h2>
-            <p className="text-base leading-relaxed">
+            <img 
+              src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/bible.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYmlibGUuc3ZnIiwiaWF0IjoxNzM4ODYwMjMyLCJleHAiOjE3NzAzOTYyMzJ9.MnM6EpyMRAKdNegi0ohGv6yRuqGxQJrwtA5zHt7AFGA"
+              alt="Bible"
+              className="w-20 h-20 mx-auto mb-4 [filter:brightness(0)_saturate(100%)_invert(45%)_sepia(44%)_saturate(6048%)_hue-rotate(232deg)_brightness(92%)_contrast(93%)]"
+            />
+            <h2 className="text-2xl font-semibold mb-4 text-white">Before You Begin</h2>
+            <p className="text-base leading-relaxed text-gray-200">
               In the presence of our Lord Jesus Christ, take a moment to truly reflect on your actions. 
               True confession requires a sincere heart and genuine remorse for our sins. 
               Remember that God's mercy is infinite, but we must approach confession with 
               humility and a genuine desire for redemption.
             </p>
             <Button 
-              className="w-full mt-6" 
+              className="w-full mt-6 bg-[#6b5de6] hover:bg-[#6b5de6]/90" 
               onClick={startConfession}
             >
               Begin Confession
@@ -144,3 +149,4 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
 };
 
 export default ConfessionFlow;
+
