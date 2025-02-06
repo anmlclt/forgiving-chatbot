@@ -10,7 +10,7 @@ interface QuizQuestionProps {
 
 const QuizQuestion = ({ question, options, onAnswer }: QuizQuestionProps) => {
   return (
-    <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
+    <Card className="bg-[#242424] border border-gray-700 mx-4">
       <CardHeader>
         <CardTitle className="text-white text-lg">
           {question}
