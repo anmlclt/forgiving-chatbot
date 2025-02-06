@@ -23,12 +23,12 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             className="relative flex flex-col items-start justify-center h-[160px] bg-[#4646F9] hover:bg-[#4646F9]/90 text-white p-6 rounded-2xl w-full text-left overflow-hidden"
           >
             <span className="text-2xl font-semibold mb-2">Forgive a sin</span>
-            <p className="text-sm text-white/80 max-w-[70%]">
+            <p className="text-sm text-white/80 max-w-[60%] break-words">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </p>
             {/* Prayer hands icon */}
             <svg 
-              className="absolute right-6 top-1/2 -translate-y-1/2 h-20 w-20"
+              className="absolute right-4 top-1/2 -translate-y-1/2 h-24 w-24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -45,7 +45,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
           >
             {/* Priest icon */}
             <svg 
-              className="h-20 w-20 mr-4"
+              className="h-24 w-24 mr-4 shrink-0"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -55,9 +55,9 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
               <path d="M12 11V20M8 16H16" stroke="currentColor"/>
               <rect x="10" y="14" width="4" height="4" stroke="currentColor"/>
             </svg>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-1 min-w-0">
               <span className="text-2xl font-semibold mb-2">Chat with AI Priest</span>
-              <p className="text-sm text-[#4646F9]/80 max-w-[200px]">
+              <p className="text-sm text-[#4646F9]/80 break-words">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
             </div>
