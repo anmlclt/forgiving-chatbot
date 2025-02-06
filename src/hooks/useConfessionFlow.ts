@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { analyzeSin, SinAnalysis } from '@/services/confession';
 import { useToast } from "@/components/ui/use-toast";
@@ -41,11 +40,7 @@ export const useConfessionFlow = () => {
     if (currentQuizStep < quizQuestions.length - 1) {
       setCurrentQuizStep(prev => prev + 1);
     } else {
-      if (currentQuestion.key === 'regret' && (answer === 'Not sure' || answer === 'No')) {
-        setShowKeepPraying(true);
-      } else {
-        setCurrentQuizStep(quizQuestions.length);
-      }
+      setCurrentQuizStep(quizQuestions.length);
     }
   };
 
@@ -56,15 +51,19 @@ export const useConfessionFlow = () => {
       setAnalysis(result);
       console.log('Analysis result:', result);
 
-      if (result.forgiveness_status === 'NEEDS_REFLECTION') {
-        setShowKeepPraying(true);
-      } else {
-        setShowCross(true);
-        setTimeout(() => {
-          setShowCross(false);
+      // Always show the cross animation first
+      setShowCross(true);
+      setTimeout(() => {
+        setShowCross(false);
+        // If user indicated no regret, show keep praying screen regardless of AI analysis
+        if (quizAnswers.regret === 'Not sure' || quizAnswers.regret === 'No') {
+          setShowKeepPraying(true);
+        } else if (result.forgiveness_status === 'NEEDS_REFLECTION') {
+          setShowKeepPraying(true);
+        } else {
           setShowSuccess(true);
-        }, 3000);
-      }
+        }
+      }, 3000);
     } catch (error) {
       console.error('Error:', error);
       toast({
