@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
 import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
@@ -30,9 +31,9 @@ const Index = () => {
     setMessages(prev => [...prev, { text: messageToSend, isUser: true }]);
     setMessage('');
     setShowChatHome(false);
+    setShowAllChats(false); // Make sure to hide the all chats screen
 
     try {
-      // Only store user's initial message in chat history
       await supabase.from('chat_history').insert([
         { message: messageToSend, is_user_message: true, user_id: user.id }
       ]);
@@ -95,6 +96,10 @@ const Index = () => {
     setShowAllChats(false);
   };
 
+  const handleChatSelect = (selectedMessage: string) => {
+    handleSendMessage(selectedMessage);
+  };
+
   if (!user) {
     return <Navigate to="/auth" />;
   }
@@ -119,7 +124,7 @@ const Index = () => {
         showAllChats ? (
           <AllChatsScreen 
             onBack={handleBackFromAllChats}
-            onChatSelect={handleSendMessage}
+            onChatSelect={handleChatSelect}
           />
         ) : showChatHome ? (
           <ChatHomeScreen 
