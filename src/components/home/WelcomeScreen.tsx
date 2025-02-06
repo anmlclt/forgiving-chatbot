@@ -1,6 +1,17 @@
 
-import { Menu, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/components/auth/AuthProvider";
+import { useProfile } from "@/hooks/useProfile";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { useRef } from 'react';
 
 interface WelcomeScreenProps {
   onGetStarted: (screen?: string) => void;
@@ -8,6 +19,17 @@ interface WelcomeScreenProps {
 }
 
 const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenProps) => {
+  const { user } = useAuth();
+  const { profile, updateAvatar, isUpdating } = useProfile(user?.id);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      updateAvatar(file);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#242424] flex flex-col">
       {/* Header */}
@@ -15,9 +37,30 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
         <Button variant="ghost" className="text-[#F7F7F7] p-2">
           <Menu className="h-6 w-6" />
         </Button>
-        <Button variant="ghost" className="text-[#F7F7F7] p-2">
-          <User className="h-6 w-6" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={profile?.avatar_url || undefined} alt="Profile" />
+                <AvatarFallback>
+                  {user?.email?.charAt(0).toUpperCase() || '?'}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={() => fileInputRef.current?.click()}>
+              {isUpdating ? 'Updating...' : 'Change Avatar'}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
       </div>
 
       {/* Main Content */}
