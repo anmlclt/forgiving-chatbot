@@ -1,11 +1,13 @@
+
 import { useState } from 'react';
-import { Church, MessageSquare, User, Home, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import QuizQuestion from "@/components/forgive/QuizQuestion";
 import CustomDescription from "@/components/forgive/CustomDescription";
 import CrossAnimation from "@/components/forgive/CrossAnimation";
 import SuccessScreen from "@/components/forgive/SuccessScreen";
 import ChatInterface from "@/components/chat/ChatInterface";
+import WelcomeScreen from "@/components/home/WelcomeScreen";
+import BottomNavigation from "@/components/navigation/BottomNavigation";
 
 const Index = () => {
   const [credits, setCredits] = useState(5);
@@ -88,14 +90,11 @@ const Index = () => {
     setTimeout(() => {
       setShowCross(false);
       setShowSuccess(true);
-    }, 3000); // Updated from 2000 to 3000ms
+    }, 3000);
   };
 
   const renderForgiveContent = () => {
-    if (showCross) {
-      return <CrossAnimation />;
-    }
-
+    if (showCross) return <CrossAnimation />;
     if (showSuccess) {
       return (
         <SuccessScreen 
@@ -135,77 +134,17 @@ const Index = () => {
     );
   };
 
-  const renderBottomNavigation = () => (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
-      <Button
-        variant="ghost"
-        className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
-        onClick={() => setActiveTab('home')}
-      >
-        <Home className="h-5 w-5" />
-        <span className="text-xs">Home</span>
-      </Button>
-      <Button
-        variant="ghost"
-        className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
-        onClick={() => setActiveTab('chat')}
-      >
-        <MessageSquare className="h-5 w-5" />
-        <span className="text-xs">Chat</span>
-      </Button>
-      <Button
-        variant="ghost"
-        className={`flex flex-col items-center gap-1 ${activeTab === 'forgive' ? 'text-[#F97316]' : 'text-gray-400'}`}
-        onClick={() => setActiveTab('forgive')}
-      >
-        <HandHeart className="h-5 w-5" />
-        <span className="text-xs">Forgive</span>
-      </Button>
-      <Button
-        variant="ghost"
-        className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
-        onClick={() => setActiveTab('profile')}
-      >
-        <User className="h-5 w-5" />
-        <span className="text-xs">Profile</span>
-      </Button>
-    </div>
-  );
-
   if (showWelcome) {
     return (
-      <div className="min-h-screen bg-[#1A1F2C] flex flex-col items-center justify-between p-6">
-        <div className="w-full max-w-md flex-1 flex flex-col items-center justify-center text-white space-y-6">
-          <div className="w-48 h-48 rounded-full bg-[#9b87f5] flex items-center justify-center mb-8">
-            <Church className="w-24 h-24 text-white" />
-          </div>
-          
-          <h1 className="text-3xl font-bold text-center mb-2">
-            Ask for Forgiveness
-          </h1>
-          
-          <p className="text-center text-gray-300 max-w-xs">
-            Connect with divine guidance through our virtual confession booth. Find peace and forgiveness, available 24/7.
-          </p>
-
-          <div className="flex gap-2 justify-center mt-4">
-            {[0, 1, 2, 3].map((dot) => (
-              <div
-                key={dot}
-                className={`h-2 rounded-full ${dot === 1 ? 'w-8 bg-[#F97316]' : 'w-2 bg-gray-600'}`}
-              />
-            ))}
-          </div>
-
-          <Button
-            onClick={handleGetStarted}
-            className="w-full max-w-xs mt-8 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-          >
-            GET STARTED
-          </Button>
-        </div>
-        {renderBottomNavigation()}
-      </div>
+      <WelcomeScreen 
+        onGetStarted={handleGetStarted}
+        renderBottomNavigation={() => (
+          <BottomNavigation 
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
+        )}
+      />
     );
   }
 
@@ -226,7 +165,10 @@ const Index = () => {
           ) : null}
         </div>
       </div>
-      {renderBottomNavigation()}
+      <BottomNavigation 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
     </div>
   );
 };
