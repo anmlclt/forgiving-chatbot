@@ -1,8 +1,10 @@
 
+import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Church, Coins, SendHorizontal } from "lucide-react";
+import { Church, SendHorizontal } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ChatMessage {
   text: string;
@@ -11,24 +13,28 @@ interface ChatMessage {
 
 interface ChatInterfaceProps {
   messages: ChatMessage[];
-  credits: number;
   message: string;
   onMessageChange: (message: string) => void;
   onSendMessage: () => void;
 }
 
-const ChatInterface = ({ messages, credits, message, onMessageChange, onSendMessage }: ChatInterfaceProps) => {
+const ChatInterface = ({ messages, message, onMessageChange, onSendMessage }: ChatInterfaceProps) => {
+  const { toast } = useToast();
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      onSendMessage();
+    }
+  };
+
   return (
     <>
       <Card className="mb-4 bg-[#1A1F2C] border border-gray-700">
         <CardHeader className="flex flex-row items-center justify-between">
           <div className="flex items-center gap-2 text-white">
             <Church className="h-6 w-6" />
-            <CardTitle>Forgive My Sins</CardTitle>
-          </div>
-          <div className="flex items-center gap-2 text-white">
-            <Coins className="h-5 w-5 text-[#F97316]" />
-            <span className="font-semibold">{credits} credits</span>
+            <CardTitle>Spiritual Guidance</CardTitle>
           </div>
         </CardHeader>
       </Card>
@@ -57,16 +63,15 @@ const ChatInterface = ({ messages, credits, message, onMessageChange, onSendMess
           <div className="border-t border-gray-700 p-4 mt-auto">
             <div className="flex gap-2">
               <Input
-                placeholder={credits > 0 ? "Type your confession..." : "Out of credits"}
+                placeholder="Ask for spiritual guidance..."
                 value={message}
                 onChange={(e) => onMessageChange(e.target.value)}
-                disabled={credits <= 0}
-                onKeyPress={(e) => e.key === 'Enter' && onSendMessage()}
+                onKeyPress={handleKeyPress}
                 className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
               />
               <Button
                 onClick={onSendMessage}
-                disabled={!message.trim() || credits <= 0}
+                disabled={!message.trim()}
                 className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
               >
                 <SendHorizontal className="h-5 w-5" />

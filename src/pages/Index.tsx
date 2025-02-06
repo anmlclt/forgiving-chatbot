@@ -4,29 +4,44 @@ import ChatInterface from "@/components/chat/ChatInterface";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import ConfessionFlow from "@/components/confession/ConfessionFlow";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
-  const [credits, setCredits] = useState(5);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
-    { text: "Welcome, my child. I am here to listen to your confessions and offer guidance. Each confession will cost 1 credit.", isUser: false }
+    { text: "Greetings, my child. I am here to provide spiritual guidance and support on your journey of faith. How may I assist you today?", isUser: false }
   ]);
   const [activeTab, setActiveTab] = useState('home');
   const [showWelcome, setShowWelcome] = useState(true);
+  const { toast } = useToast();
 
-  const handleSendMessage = () => {
-    if (!message.trim() || credits <= 0) return;
+  const handleSendMessage = async () => {
+    if (!message.trim()) return;
     
-    setMessages(prev => [...prev, { text: message, isUser: true }]);
-    setCredits(prev => prev - 1);
+    const userMessage = message;
+    setMessages(prev => [...prev, { text: userMessage, isUser: true }]);
     setMessage('');
 
-    setTimeout(() => {
-      setMessages(prev => [...prev, { 
-        text: "I hear your confession. Take comfort in knowing that sharing your burden is the first step toward forgiveness.", 
-        isUser: false 
-      }]);
-    }, 1000);
+    try {
+      const response = await fetch('${window.location.origin}/functions/v1/chat-with-ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      if (!response.ok) throw new Error('Failed to get response');
+      
+      const data = await response.json();
+      setMessages(prev => [...prev, { text: data.response, isUser: false }]);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to get response. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleGetStarted = (screen: string = 'forgive') => {
@@ -65,7 +80,6 @@ const Index = () => {
           {activeTab === 'chat' ? (
             <ChatInterface
               messages={messages}
-              credits={credits}
               message={message}
               onMessageChange={setMessage}
               onSendMessage={handleSendMessage}
