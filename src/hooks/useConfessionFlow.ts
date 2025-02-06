@@ -12,6 +12,7 @@ export interface QuizAnswers {
 
 export const useConfessionFlow = () => {
   const { toast } = useToast();
+  const [showDisclaimerScreen, setShowDisclaimerScreen] = useState(true);
   const [currentQuizStep, setCurrentQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<QuizAnswers>({
     sinType: '',
@@ -25,6 +26,10 @@ export const useConfessionFlow = () => {
   const [showKeepPraying, setShowKeepPraying] = useState(false);
   const [analysis, setAnalysis] = useState<SinAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const startConfession = () => {
+    setShowDisclaimerScreen(false);
+  };
 
   const handleQuizAnswer = (answer: string) => {
     const currentQuestion = quizQuestions[currentQuizStep];
@@ -75,6 +80,7 @@ export const useConfessionFlow = () => {
   const resetFlow = () => {
     setShowSuccess(false);
     setShowKeepPraying(false);
+    setShowDisclaimerScreen(true);
     setCurrentQuizStep(0);
     setQuizAnswers({
       sinType: '',
@@ -111,6 +117,7 @@ export const useConfessionFlow = () => {
 
   return {
     currentQuizStep,
+    showDisclaimerScreen,
     quizAnswers,
     customDescription,
     showSuccess,
@@ -123,6 +130,7 @@ export const useConfessionFlow = () => {
     handleSubmitSin,
     setCustomDescription,
     resetFlow,
-    setShowKeepPraying
+    setShowKeepPraying,
+    startConfession
   };
 };

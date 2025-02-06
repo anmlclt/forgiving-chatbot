@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { useProfile } from "@/hooks/useProfile";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ConfessionFlowProps {
   onNavigateToChat: () => void;
@@ -18,6 +19,7 @@ interface ConfessionFlowProps {
 const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
   const {
     currentQuizStep,
+    showDisclaimerScreen,
     customDescription,
     showSuccess,
     showCross,
@@ -29,7 +31,8 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
     handleSubmitSin,
     setCustomDescription,
     resetFlow,
-    setShowKeepPraying
+    setShowKeepPraying,
+    startConfession
   } = useConfessionFlow();
 
   const { user } = useAuth();
@@ -52,6 +55,31 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
       </Avatar>
     </div>
   );
+
+  if (showDisclaimerScreen) {
+    return (
+      <>
+        {renderTopNavbar()}
+        <Card className="bg-card/50 backdrop-blur">
+          <CardContent className="pt-6 text-center space-y-6">
+            <h2 className="text-2xl font-semibold mb-4">Before You Begin</h2>
+            <p className="text-base leading-relaxed">
+              In the presence of our Lord Jesus Christ, take a moment to truly reflect on your actions. 
+              True confession requires a sincere heart and genuine remorse for our sins. 
+              Remember that God's mercy is infinite, but we must approach confession with 
+              humility and a genuine desire for redemption.
+            </p>
+            <Button 
+              className="w-full mt-6" 
+              onClick={startConfession}
+            >
+              Begin Confession
+            </Button>
+          </CardContent>
+        </Card>
+      </>
+    );
+  }
 
   if (showCross) return <CrossAnimation />;
   
@@ -116,4 +144,3 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
 };
 
 export default ConfessionFlow;
-
