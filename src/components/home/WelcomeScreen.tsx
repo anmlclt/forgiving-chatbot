@@ -35,11 +35,11 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             <img 
               src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/hands.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvaGFuZHMuc3ZnIiwiaWF0IjoxNzM4ODIyMTM4LCJleHAiOjE3NzAzNTgxMzh9.t7n-2psDedjK1Q2zkS0e-XrGu2I_m0fZEoiO20nU2ts"
               alt="Hands icon"
-              className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(89%)_sepia(14%)_saturate(523%)_hue-rotate(181deg)_brightness(102%)_contrast(98%)]"
+              className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(100%)_sepia(0%)_saturate(0%)_hue-rotate(0deg)_brightness(100%)_contrast(100%)]"
             />
             <div className="text-left">
-              <span className="text-lg font-medium block text-[#C0DDFF]">Forgive a sin</span>
-              <span className="text-sm block text-[#E4E4E4]">Record and seek absolution</span>
+              <span className="text-lg font-medium block text-white">Forgive a sin</span>
+              <span className="text-sm block text-white">Record and seek absolution</span>
             </div>
           </Button>
 
