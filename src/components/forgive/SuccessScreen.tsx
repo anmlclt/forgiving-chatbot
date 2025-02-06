@@ -14,7 +14,7 @@ const SuccessScreen = ({ customDescription, analysis, onReturn }: SuccessScreenP
         <img 
           src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/angel.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYW5nZWwuc3ZnIiwiaWF0IjoxNzM4ODEyODcyLCJleHAiOjE3NzAzNDg4NzJ9.fEyRyIjrcHCc7zk-uHOIrcJGiQ2rtRA03Rs4u8xbSqU"
           alt="Angel icon"
-          className="w-full h-full [filter:invert(48%)_sepia(94%)_saturate(751%)_hue-rotate(346deg)_brightness(101%)_contrast(96%)]"
+          className="w-full h-full [filter:brightness(0)_saturate(100%)_invert(45%)_sepia(44%)_saturate(6048%)_hue-rotate(232deg)_brightness(92%)_contrast(93%)]"
         />
       </div>
       <h2 className="text-2xl font-bold text-white mb-4 text-center animate-fade-in">
