@@ -18,6 +18,11 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
     }
   };
 
+  const predefinedPrompts = [
+    "How can I strengthen my faith?",
+    "Guide me through daily prayer"
+  ];
+
   return (
     <div className="min-h-screen bg-[#1A1F2C] p-4">
       <div className="flex justify-between items-center mb-6">
@@ -42,7 +47,10 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
       </Card>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <Card className="bg-[#2A2F3C] p-4 rounded-xl">
+        <Card 
+          className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+          onClick={() => onStartChat("Help me study the scriptures")}
+        >
           <div className="flex flex-col h-full">
             <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
               <MessageSquare className="h-5 w-5 text-white" />
@@ -51,7 +59,10 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
             <p className="text-sm text-gray-400">Explore the Bible with AI guidance</p>
           </div>
         </Card>
-        <Card className="bg-[#2A2F3C] p-4 rounded-xl">
+        <Card 
+          className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+          onClick={() => onStartChat("Guide me in my daily prayer")}
+        >
           <div className="flex flex-col h-full">
             <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
               <ImageIcon className="h-5 w-5 text-white" />
@@ -70,18 +81,22 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
           </Button>
         </div>
         <div className="space-y-3">
-          <Card className="bg-[#2A2F3C] p-3 rounded-xl">
-            <div className="flex items-center text-white">
-              <MessageSquare className="h-5 w-5 mr-3" />
-              <span className="text-sm">How can I strengthen my faith?</span>
-            </div>
-          </Card>
-          <Card className="bg-[#2A2F3C] p-3 rounded-xl">
-            <div className="flex items-center text-white">
-              <MicIcon className="h-5 w-5 mr-3" />
-              <span className="text-sm">Guide me through daily prayer</span>
-            </div>
-          </Card>
+          {predefinedPrompts.map((prompt, index) => (
+            <Card 
+              key={index}
+              className="bg-[#2A2F3C] p-3 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+              onClick={() => onStartChat(prompt)}
+            >
+              <div className="flex items-center text-white">
+                {index === 0 ? (
+                  <MessageSquare className="h-5 w-5 mr-3" />
+                ) : (
+                  <MicIcon className="h-5 w-5 mr-3" />
+                )}
+                <span className="text-sm">{prompt}</span>
+              </div>
+            </Card>
+          ))}
         </div>
       </div>
 
@@ -106,4 +121,3 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
 };
 
 export default ChatHomeScreen;
-
