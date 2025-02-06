@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import QuizQuestion from "@/components/forgive/QuizQuestion";
@@ -7,6 +8,7 @@ import SuccessScreen from "@/components/forgive/SuccessScreen";
 import ChatInterface from "@/components/chat/ChatInterface";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
+import KeepPrayingScreen from "@/components/forgive/KeepPrayingScreen";
 
 const Index = () => {
   const [credits, setCredits] = useState(5);
@@ -26,6 +28,7 @@ const Index = () => {
   const [customDescription, setCustomDescription] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [showCross, setShowCross] = useState(false);
+  const [showKeepPraying, setShowKeepPraying] = useState(false);
 
   const handleSendMessage = () => {
     if (!message.trim() || credits <= 0) return;
@@ -90,7 +93,12 @@ const Index = () => {
     if (currentQuizStep < quizQuestions.length - 1) {
       setCurrentQuizStep(prev => prev + 1);
     } else {
-      setCurrentQuizStep(quizQuestions.length);
+      // Check if the user selected "Not sure" or "No" for regret
+      if (currentQuestion.key === 'regret' && (answer === 'Not sure' || answer === 'No')) {
+        setShowKeepPraying(true);
+      } else {
+        setCurrentQuizStep(quizQuestions.length);
+      }
     }
   };
 
@@ -118,6 +126,34 @@ const Index = () => {
               regret: ''
             });
             setCustomDescription('');
+          }}
+        />
+      );
+    }
+
+    if (showKeepPraying) {
+      return (
+        <KeepPrayingScreen 
+          onChatClick={() => {
+            setShowKeepPraying(false);
+            setActiveTab('chat');
+            setCurrentQuizStep(0);
+            setQuizAnswers({
+              sinType: '',
+              severity: '',
+              frequency: '',
+              regret: ''
+            });
+          }}
+          onReturn={() => {
+            setShowKeepPraying(false);
+            setCurrentQuizStep(0);
+            setQuizAnswers({
+              sinType: '',
+              severity: '',
+              frequency: '',
+              regret: ''
+            });
           }}
         />
       );
