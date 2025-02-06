@@ -110,11 +110,13 @@ const Index = () => {
   const handleSubmitSin = async () => {
     setIsAnalyzing(true);
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
       const response = await fetch('/functions/v1/analyze-sin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${supabase.auth.session()?.access_token}`
+          'Authorization': `Bearer ${session?.access_token}`
         },
         body: JSON.stringify({
           sinDescription: customDescription
