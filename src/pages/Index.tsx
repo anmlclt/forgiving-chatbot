@@ -9,8 +9,11 @@ import ChatInterface from "@/components/chat/ChatInterface";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import KeepPrayingScreen from "@/components/forgive/KeepPrayingScreen";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
   const [credits, setCredits] = useState(5);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
@@ -29,6 +32,8 @@ const Index = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showCross, setShowCross] = useState(false);
   const [showKeepPraying, setShowKeepPraying] = useState(false);
+  const [analysis, setAnalysis] = useState<{ analysis: string; forgiveness_status: string } | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleSendMessage = () => {
     if (!message.trim() || credits <= 0) return;
@@ -102,12 +107,45 @@ const Index = () => {
     }
   };
 
-  const handleSubmitSin = () => {
-    setShowCross(true);
-    setTimeout(() => {
-      setShowCross(false);
-      setShowSuccess(true);
-    }, 3000);
+  const handleSubmitSin = async () => {
+    setIsAnalyzing(true);
+    try {
+      const response = await fetch('/functions/v1/analyze-sin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabase.auth.session()?.access_token}`
+        },
+        body: JSON.stringify({
+          sinDescription: customDescription
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to analyze sin');
+      }
+
+      const result = await response.json();
+      setAnalysis(result);
+
+      if (result.forgiveness_status === 'NEEDS_REFLECTION') {
+        setShowKeepPraying(true);
+      } else {
+        setShowCross(true);
+        setTimeout(() => {
+          setShowCross(false);
+          setShowSuccess(true);
+        }, 3000);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to analyze your confession. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const renderForgiveContent = () => {
@@ -116,6 +154,7 @@ const Index = () => {
       return (
         <SuccessScreen 
           customDescription={customDescription}
+          analysis={analysis?.analysis}
           onReturn={() => {
             setShowSuccess(false);
             setCurrentQuizStep(0);
@@ -126,6 +165,7 @@ const Index = () => {
               regret: ''
             });
             setCustomDescription('');
+            setAnalysis(null);
           }}
         />
       );
@@ -175,6 +215,7 @@ const Index = () => {
         description={customDescription}
         onDescriptionChange={setCustomDescription}
         onSubmit={handleSubmitSin}
+        isAnalyzing={isAnalyzing}
       />
     );
   };

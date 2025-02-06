@@ -2,14 +2,21 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 
 interface CustomDescriptionProps {
   description: string;
   onDescriptionChange: (description: string) => void;
   onSubmit: () => void;
+  isAnalyzing?: boolean;
 }
 
-const CustomDescription = ({ description, onDescriptionChange, onSubmit }: CustomDescriptionProps) => {
+const CustomDescription = ({ 
+  description, 
+  onDescriptionChange, 
+  onSubmit,
+  isAnalyzing = false 
+}: CustomDescriptionProps) => {
   return (
     <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
       <CardHeader>
@@ -24,6 +31,7 @@ const CustomDescription = ({ description, onDescriptionChange, onSubmit }: Custo
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
           required
+          disabled={isAnalyzing}
         />
         <Button
           onClick={() => {
@@ -32,9 +40,16 @@ const CustomDescription = ({ description, onDescriptionChange, onSubmit }: Custo
             }
           }}
           className="w-full bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-          disabled={!description.trim()}
+          disabled={!description.trim() || isAnalyzing}
         >
-          Seek Forgiveness
+          {isAnalyzing ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Analyzing...
+            </>
+          ) : (
+            'Seek Forgiveness'
+          )}
         </Button>
       </CardContent>
     </Card>
