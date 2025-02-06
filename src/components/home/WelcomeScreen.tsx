@@ -11,7 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface WelcomeScreenProps {
   onGetStarted: (screen?: string) => void;
@@ -20,13 +21,22 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenProps) => {
   const { user } = useAuth();
-  const { profile, updateAvatar, isUpdating } = useProfile(user?.id);
+  const { profile, updateAvatar, updateFirstName, isUpdating } = useProfile(user?.id);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [firstName, setFirstName] = useState(profile?.first_name || "");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       updateAvatar(file);
+    }
+  };
+
+  const handleSaveFirstName = () => {
+    if (firstName.trim()) {
+      updateFirstName(firstName);
+      setIsDialogOpen(false);
     }
   };
 
@@ -52,6 +62,9 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             <DropdownMenuItem onClick={() => fileInputRef.current?.click()}>
               {isUpdating ? 'Updating...' : 'Change Avatar'}
             </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
+              Change Name
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <Input
@@ -66,7 +79,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
       {/* Main Content */}
       <div className="flex-1 px-6 py-8">
         <h1 className="text-4xl font-bold text-[#F7F7F7] mb-8">
-          Welcome to Confess
+          {profile?.first_name ? `Hi, ${profile.first_name}` : 'Welcome to Confess'}
         </h1>
 
         {/* Grid of Buttons */}
@@ -102,6 +115,25 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
           </Button>
         </div>
       </div>
+
+      {/* Name Change Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Change your name</DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <Input
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter your first name"
+            />
+            <Button onClick={handleSaveFirstName} disabled={!firstName.trim()}>
+              Save
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {renderBottomNavigation()}
     </div>

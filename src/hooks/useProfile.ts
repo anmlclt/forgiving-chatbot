@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 export interface Profile {
   id: string;
   avatar_url: string | null;
+  first_name: string | null;
   updated_at: string;
 }
 
@@ -75,10 +76,40 @@ export const useProfile = (userId: string | undefined) => {
     },
   });
 
+  const updateFirstName = useMutation({
+    mutationFn: async (firstName: string) => {
+      if (!userId) throw new Error("No user ID");
+
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ first_name: firstName })
+        .eq('id', userId);
+
+      if (updateError) throw updateError;
+
+      return firstName;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile', userId] });
+      toast({
+        title: "Success",
+        description: "Name updated successfully",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update name: " + error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   return {
     profile,
     isLoading,
     updateAvatar: updateAvatar.mutate,
-    isUpdating: updateAvatar.isPending
+    updateFirstName: updateFirstName.mutate,
+    isUpdating: updateAvatar.isPending || updateFirstName.isPending
   };
 };
