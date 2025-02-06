@@ -1,5 +1,5 @@
 
-import { Menu, User, MessageSquare, HandHeart } from 'lucide-react';
+import { Menu, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface WelcomeScreenProps {
@@ -32,18 +32,26 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             onClick={() => onGetStarted()}
             className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl w-full"
           >
-            <HandHeart className="h-12 w-12 mb-4 text-[#9b87f5]" />
+            <img 
+              src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/hands.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvaGFuZHMuc3ZnIiwiaWF0IjoxNzM4ODIyMTM4LCJleHAiOjE3NzAzNTgxMzh9.t7n-2psDedjK1Q2zkS0e-XrGu2I_m0fZEoiO20nU2ts"
+              alt="Hands icon"
+              className="h-16 w-16 mb-4"
+            />
             <span className="text-lg font-medium">Forgive a sin</span>
-            <span className="text-sm text-gray-400 mt-1">Record and seek absolution</span>
+            <span className="text-sm text-gray-400 mt-1 text-center">Record and seek absolution</span>
           </Button>
 
           <Button
             onClick={() => onGetStarted('chat')}
             className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl w-full"
           >
-            <MessageSquare className="h-12 w-12 mb-4 text-[#9b87f5]" />
+            <img 
+              src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/priest.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvcHJpZXN0LnN2ZyIsImlhdCI6MTczODgyMjE3OSwiZXhwIjoxNzcwMzU4MTc5fQ.Y13Z1bL4-vas2Iwi_l1DZzzYQqU2BdgmX6jFopVwXJg"
+              alt="Priest icon" 
+              className="h-16 w-16 mb-4"
+            />
             <span className="text-lg font-medium">Chat with AI Priest</span>
-            <span className="text-sm text-gray-400 mt-1">Seek guidance</span>
+            <span className="text-sm text-gray-400 mt-1 text-center">Seek guidance</span>
           </Button>
         </div>
       </div>
