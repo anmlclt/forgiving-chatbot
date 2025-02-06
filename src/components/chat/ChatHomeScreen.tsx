@@ -28,8 +28,6 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       const { data, error } = await supabase
         .from('chat_history')
         .select('*')
-        .select('DISTINCT ON (message) *')
-        .order('message')
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -39,7 +37,18 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       }
 
       if (data) {
-        setChatHistory(data);
+        // Create a Map to store unique messages with their latest timestamp
+        const uniqueMessages = new Map();
+        data.forEach((chat) => {
+          if (!uniqueMessages.has(chat.message) || 
+              new Date(chat.created_at) > new Date(uniqueMessages.get(chat.message).created_at)) {
+            uniqueMessages.set(chat.message, chat);
+          }
+        });
+
+        // Convert Map values back to array
+        const uniqueChats = Array.from(uniqueMessages.values());
+        setChatHistory(uniqueChats);
       }
     };
 
