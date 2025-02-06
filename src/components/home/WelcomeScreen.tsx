@@ -42,7 +42,6 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
 
   return (
     <div className="min-h-screen bg-[#242424] flex flex-col">
-      {/* Header */}
       <div className="flex justify-between items-center p-4">
         <Button variant="ghost" className="text-[#F7F7F7] p-2">
           <Menu className="h-6 w-6" />
@@ -76,7 +75,6 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
         />
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 px-6 py-8">
         <h1 className="text-4xl font-bold mb-8">
           {profile?.first_name ? (
@@ -89,7 +87,6 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
           )}
         </h1>
 
-        {/* Grid of Buttons */}
         <div className="grid grid-cols-1 gap-4">
           <Button
             onClick={() => onGetStarted()}
@@ -101,7 +98,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
               className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(100%)_sepia(0%)_saturate(0%)_hue-rotate(0deg)_brightness(100%)_contrast(100%)]"
             />
             <div className="text-left">
-              <span className="text-lg font-medium block text-white">Forgive a sin</span>
+              <span className="text-lg font-medium block text-white font-bokor">Forgive a sin</span>
               <span className="text-sm block text-white">Record and seek absolution</span>
             </div>
           </Button>
@@ -116,14 +113,13 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
               className="h-20 w-20 mr-6 flex-shrink-0 [filter:brightness(0)_saturate(100%)_invert(12%)_sepia(98%)_saturate(3795%)_hue-rotate(239deg)_brightness(106%)_contrast(109%)]"
             />
             <div className="text-left">
-              <span className="text-lg font-medium block text-[#6C5DE7]">Chat with AI Priest</span>
+              <span className="text-lg font-medium block text-[#6C5DE7] font-bokor">Chat with AI Priest</span>
               <span className="text-sm block text-[#5A5A5A]">Seek guidance</span>
             </div>
           </Button>
         </div>
       </div>
 
-      {/* Name Change Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
