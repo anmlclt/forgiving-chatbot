@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
-    { text: "Welcome, dear soul. I am here to provide spiritual guidance and support on your journey of faith. How may I assist you today?", isUser: false }
+    { text: "My child, welcome to this sacred space. I am here as your spiritual guide to provide religious counsel through the teachings of our Lord Jesus Christ. How may I assist you in your walk with God today?", isUser: false }
   ]);
   const [activeTab, setActiveTab] = useState('home');
   const [showWelcome, setShowWelcome] = useState(true);
