@@ -22,13 +22,15 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             onClick={() => onGetStarted()}
             className="relative flex flex-col items-start justify-center h-[160px] bg-[#4646F9] hover:bg-[#4646F9]/90 text-white p-6 rounded-2xl w-full text-left overflow-hidden"
           >
-            <span className="text-2xl font-semibold mb-2">Forgive a sin</span>
-            <p className="text-sm text-white/80 max-w-[60%] break-words">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
+            <div className="relative z-10 max-w-[55%]">
+              <span className="text-2xl font-semibold mb-2 block">Forgive a sin</span>
+              <p className="text-sm text-white/80 break-words">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </p>
+            </div>
             {/* Prayer hands icon */}
             <svg 
-              className="absolute right-4 top-1/2 -translate-y-1/2 h-24 w-24"
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-32 w-32"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -45,7 +47,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
           >
             {/* Priest icon */}
             <svg 
-              className="h-24 w-24 mr-4 shrink-0"
+              className="h-32 w-32 mr-4 shrink-0"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -57,7 +59,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
             </svg>
             <div className="flex flex-col flex-1 min-w-0">
               <span className="text-2xl font-semibold mb-2">Chat with AI Priest</span>
-              <p className="text-sm text-[#4646F9]/80 break-words">
+              <p className="text-sm text-[#4646F9]/80 break-words pr-2">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </p>
             </div>
