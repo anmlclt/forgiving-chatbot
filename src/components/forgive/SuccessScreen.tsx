@@ -34,7 +34,7 @@ const SuccessScreen = ({ customDescription, analysis, onReturn }: SuccessScreenP
       )}
       <Button 
         onClick={onReturn}
-        className="bg-[#F97316] hover:bg-[#F97316]/90 text-white animate-scale-in"
+        className="bg-[#6b5de6] hover:bg-[#6b5de6]/90 text-white animate-scale-in"
       >
         Forgive Another Sin
       </Button>

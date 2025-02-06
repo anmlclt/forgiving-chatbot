@@ -32,7 +32,7 @@ const KeepPrayingScreen = ({ onChatClick, onReturn, analysis }: KeepPrayingScree
       <div className="space-y-4">
         <Button 
           onClick={onChatClick}
-          className="bg-[#F97316] hover:bg-[#F97316]/90 text-white w-full flex items-center justify-center gap-2"
+          className="bg-[#6b5de6] hover:bg-[#6b5de6]/90 text-white w-full flex items-center justify-center gap-2"
         >
           <MessageSquare className="w-4 h-4" />
           Chat with AI Priest
