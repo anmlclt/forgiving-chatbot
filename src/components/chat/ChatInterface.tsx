@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Church, SendHorizontal, ThumbsUp, ThumbsDown, Share2, MoreVertical } from "lucide-react";
+import { Church, SendHorizontal } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ChatMessage {
@@ -46,9 +46,6 @@ const ChatInterface = ({ messages, message, onMessageChange, onSendMessage, onBa
             <p className="text-sm text-green-500">online</p>
           </div>
         </div>
-        <Button variant="ghost" size="icon" className="text-white">
-          <MoreVertical className="h-6 w-6" />
-        </Button>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -65,22 +62,6 @@ const ChatInterface = ({ messages, message, onMessageChange, onSendMessage, onBa
               }`}
             >
               {msg.text}
-              {!msg.isUser && (
-                <div className="flex gap-2 mt-2">
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <ThumbsUp className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <ThumbsDown className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
         ))}

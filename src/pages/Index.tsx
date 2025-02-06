@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
+import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import ConfessionFlow from "@/components/confession/ConfessionFlow";
@@ -14,18 +15,20 @@ const Index = () => {
   ]);
   const [activeTab, setActiveTab] = useState('home');
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showChatHome, setShowChatHome] = useState(true);
   const { toast } = useToast();
 
-  const handleSendMessage = async () => {
-    if (!message.trim()) return;
+  const handleSendMessage = async (initialMessage?: string) => {
+    const messageToSend = initialMessage || message;
+    if (!messageToSend.trim()) return;
     
-    const userMessage = message;
-    setMessages(prev => [...prev, { text: userMessage, isUser: true }]);
+    setMessages(prev => [...prev, { text: messageToSend, isUser: true }]);
     setMessage('');
+    setShowChatHome(false);
 
     try {
       const { data, error } = await supabase.functions.invoke('chat-with-ai', {
-        body: { message: userMessage },
+        body: { message: messageToSend },
       });
 
       if (error) throw error;
@@ -50,6 +53,10 @@ const Index = () => {
     if (tab === 'home') {
       setShowWelcome(true);
       setActiveTab('home');
+    } else if (tab === 'chat') {
+      setShowWelcome(false);
+      setShowChatHome(true);
+      setActiveTab('chat');
     } else {
       setShowWelcome(false);
       setActiveTab(tab);
@@ -57,8 +64,10 @@ const Index = () => {
   };
 
   const handleBack = () => {
-    setShowWelcome(true);
-    setActiveTab('home');
+    setShowChatHome(true);
+    setMessages([
+      { text: "My child, welcome to this sacred space. I am here as your spiritual guide to provide religious counsel through the teachings of our Lord Jesus Christ. How may I assist you in your walk with God today?", isUser: false }
+    ]);
   };
 
   if (showWelcome) {
@@ -78,13 +87,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
       {activeTab === 'chat' ? (
-        <ChatInterface
-          messages={messages}
-          message={message}
-          onMessageChange={setMessage}
-          onSendMessage={handleSendMessage}
-          onBack={handleBack}
-        />
+        showChatHome ? (
+          <ChatHomeScreen onStartChat={handleSendMessage} />
+        ) : (
+          <ChatInterface
+            messages={messages}
+            message={message}
+            onMessageChange={setMessage}
+            onSendMessage={() => handleSendMessage()}
+            onBack={handleBack}
+          />
+        )
       ) : (
         <>
           <div className="flex-1 p-4 pb-20">
