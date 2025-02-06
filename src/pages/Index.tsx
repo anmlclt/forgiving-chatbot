@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Church, Coins, SendHorizontal, MessageSquare, User, Home } from 'lucide-react';
+import { Church, Coins, SendHorizontal, MessageSquare, User, Home, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -34,6 +33,43 @@ const Index = () => {
     setActiveTab('chat');
   };
 
+  const renderBottomNavigation = () => (
+    <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
+      <Button
+        variant="ghost"
+        className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
+        onClick={() => setActiveTab('home')}
+      >
+        <Home className="h-5 w-5" />
+        <span className="text-xs">Home</span>
+      </Button>
+      <Button
+        variant="ghost"
+        className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
+        onClick={() => setActiveTab('chat')}
+      >
+        <MessageSquare className="h-5 w-5" />
+        <span className="text-xs">Chat</span>
+      </Button>
+      <Button
+        variant="ghost"
+        className={`flex flex-col items-center gap-1 ${activeTab === 'forgive' ? 'text-[#F97316]' : 'text-gray-400'}`}
+        onClick={() => setActiveTab('forgive')}
+      >
+        <HandHeart className="h-5 w-5" />
+        <span className="text-xs">Forgive</span>
+      </Button>
+      <Button
+        variant="ghost"
+        className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
+        onClick={() => setActiveTab('profile')}
+      >
+        <User className="h-5 w-5" />
+        <span className="text-xs">Profile</span>
+      </Button>
+    </div>
+  );
+
   if (showWelcome) {
     return (
       <div className="min-h-screen bg-[#1A1F2C] flex flex-col items-center justify-between p-6">
@@ -66,34 +102,7 @@ const Index = () => {
             GET STARTED
           </Button>
         </div>
-
-        {/* Mobile Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
-          <Button
-            variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
-            onClick={() => setActiveTab('home')}
-          >
-            <Home className="h-5 w-5" />
-            <span className="text-xs">Home</span>
-          </Button>
-          <Button
-            variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
-            onClick={() => setActiveTab('chat')}
-          >
-            <MessageSquare className="h-5 w-5" />
-            <span className="text-xs">Chat</span>
-          </Button>
-          <Button
-            variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
-            onClick={() => setActiveTab('profile')}
-          >
-            <User className="h-5 w-5" />
-            <span className="text-xs">Profile</span>
-          </Button>
-        </div>
+        {renderBottomNavigation()}
       </div>
     );
   }
@@ -159,34 +168,7 @@ const Index = () => {
           </Card>
         </div>
       </div>
-
-      {/* Mobile Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
-        <Button
-          variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
-          onClick={() => setActiveTab('home')}
-        >
-          <Home className="h-5 w-5" />
-          <span className="text-xs">Home</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
-          onClick={() => setActiveTab('chat')}
-        >
-          <MessageSquare className="h-5 w-5" />
-          <span className="text-xs">Chat</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
-          onClick={() => setActiveTab('profile')}
-        >
-          <User className="h-5 w-5" />
-          <span className="text-xs">Profile</span>
-        </Button>
-      </div>
+      {renderBottomNavigation()}
     </div>
   );
 };
