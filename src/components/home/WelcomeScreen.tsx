@@ -12,17 +12,17 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
     <div className="min-h-screen bg-[#D3E4FD] flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
-        <Button variant="ghost" className="text-white p-2">
+        <Button variant="ghost" className="text-[#1EAEDB] p-2">
           <Menu className="h-6 w-6" />
         </Button>
-        <Button variant="ghost" className="text-white p-2">
+        <Button variant="ghost" className="text-[#1EAEDB] p-2">
           <User className="h-6 w-6" />
         </Button>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 px-6 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8">
+        <h1 className="text-4xl font-bold text-[#1EAEDB] mb-8">
           Welcome to Confess
         </h1>
 
