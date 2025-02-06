@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ChatInterface from "@/components/chat/ChatInterface";
 import ChatHomeScreen from "@/components/chat/ChatHomeScreen";
 import WelcomeScreen from "@/components/home/WelcomeScreen";
@@ -27,13 +27,25 @@ const Index = () => {
     setShowChatHome(false);
 
     try {
+      // Store the user's message in chat history
+      await supabase.from('chat_history').insert([
+        { message: messageToSend, is_user_message: true }
+      ]);
+
       const { data, error } = await supabase.functions.invoke('chat-with-ai', {
         body: { message: messageToSend },
       });
 
       if (error) throw error;
       
-      setMessages(prev => [...prev, { text: data.response, isUser: false }]);
+      const aiResponse = data.response;
+      setMessages(prev => [...prev, { text: aiResponse, isUser: false }]);
+
+      // Store the AI's response in chat history
+      await supabase.from('chat_history').insert([
+        { message: aiResponse, is_user_message: false }
+      ]);
+
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
@@ -88,7 +100,10 @@ const Index = () => {
     <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
       {activeTab === 'chat' ? (
         showChatHome ? (
-          <ChatHomeScreen onStartChat={handleSendMessage} />
+          <ChatHomeScreen 
+            onStartChat={handleSendMessage} 
+            messages={messages}
+          />
         ) : (
           <ChatInterface
             messages={messages}

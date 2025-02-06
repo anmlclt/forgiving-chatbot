@@ -1,16 +1,47 @@
 
-import React from 'react';
-import { Menu, User, Pen, ImageIcon, History, MessageSquare, MicIcon, SendIcon } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Menu, User, MessageSquare, MicIcon, SendIcon, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ChatHomeScreenProps {
   onStartChat: (message: string) => void;
+  messages: Array<{ text: string; isUser: boolean }>;
 }
 
-const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
+interface ChatHistory {
+  id: string;
+  message: string;
+  created_at: string;
+  is_user_message: boolean;
+}
+
+const ChatHomeScreen = ({ onStartChat, messages }: ChatHomeScreenProps) => {
   const [message, setMessage] = React.useState('');
+  const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
+
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      const { data, error } = await supabase
+        .from('chat_history')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (error) {
+        console.error('Error fetching chat history:', error);
+        return;
+      }
+
+      if (data) {
+        setChatHistory(data);
+      }
+    };
+
+    fetchChatHistory();
+  }, []);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -19,8 +50,8 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
   };
 
   const predefinedPrompts = [
-    "How can I strengthen my faith?",
-    "Guide me through daily prayer"
+    { icon: <MessageSquare className="h-5 w-5 text-white" />, text: "Scripture Study", description: "Explore the Bible with AI guidance", prompt: "Help me study the scriptures" },
+    { icon: <MessageSquare className="h-5 w-5 text-white" />, text: "Daily Prayer", description: "AI-guided spiritual reflection", prompt: "Guide me in my daily prayer" }
   ];
 
   return (
@@ -47,30 +78,21 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
       </Card>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <Card 
-          className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
-          onClick={() => onStartChat("Help me study the scriptures")}
-        >
-          <div className="flex flex-col h-full">
-            <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
-              <MessageSquare className="h-5 w-5 text-white" />
+        {predefinedPrompts.map((prompt, index) => (
+          <Card 
+            key={index}
+            className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+            onClick={() => onStartChat(prompt.prompt)}
+          >
+            <div className="flex flex-col h-full">
+              <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
+                {prompt.icon}
+              </div>
+              <h3 className="text-white font-medium mb-1">{prompt.text}</h3>
+              <p className="text-sm text-gray-400">{prompt.description}</p>
             </div>
-            <h3 className="text-white font-medium mb-1">Scripture Study</h3>
-            <p className="text-sm text-gray-400">Explore the Bible with AI guidance</p>
-          </div>
-        </Card>
-        <Card 
-          className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
-          onClick={() => onStartChat("Guide me in my daily prayer")}
-        >
-          <div className="flex flex-col h-full">
-            <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
-              <ImageIcon className="h-5 w-5 text-white" />
-            </div>
-            <h3 className="text-white font-medium mb-1">Daily Prayer</h3>
-            <p className="text-sm text-gray-400">AI-guided spiritual reflection</p>
-          </div>
-        </Card>
+          </Card>
+        ))}
       </div>
 
       <div className="mb-4">
@@ -81,19 +103,15 @@ const ChatHomeScreen = ({ onStartChat }: ChatHomeScreenProps) => {
           </Button>
         </div>
         <div className="space-y-3">
-          {predefinedPrompts.map((prompt, index) => (
+          {chatHistory.map((chat) => (
             <Card 
-              key={index}
+              key={chat.id}
               className="bg-[#2A2F3C] p-3 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
-              onClick={() => onStartChat(prompt)}
+              onClick={() => onStartChat(chat.message)}
             >
               <div className="flex items-center text-white">
-                {index === 0 ? (
-                  <MessageSquare className="h-5 w-5 mr-3" />
-                ) : (
-                  <MicIcon className="h-5 w-5 mr-3" />
-                )}
-                <span className="text-sm">{prompt}</span>
+                <Clock className="h-5 w-5 mr-3" />
+                <span className="text-sm line-clamp-1">{chat.message}</span>
               </div>
             </Card>
           ))}
