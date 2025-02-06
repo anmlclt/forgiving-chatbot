@@ -12,7 +12,7 @@ const SuccessScreen = ({ customDescription, analysis, onReturn }: SuccessScreenP
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-6">
       <div className="w-24 h-24 mb-8 animate-scale-in">
         <img 
-          src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/angel.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYW5nZWwuc3ZnIiwiaWF0IjoxNzM4ODA2MDUyLCJleHAiOjE3NzAzNDIwNTJ9.0F94X5vgzRMo36p_GYCRPDMHaLCGCDZ3jCWwHW7M8x4"
+          src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/angel.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYW5nZWwuc3ZnIiwiaWF0IjoxNzM4ODA2MDUyLCJleHAiOjE3NzAzNDIwNTJ9.0F94X5vgzRMo36p7GYCRPDMHaLCGCDZ3jCWwHW7M8x4"
           alt="Angel icon"
           className="w-full h-full [filter:invert(48%)_sepia(94%)_saturate(751%)_hue-rotate(346deg)_brightness(101%)_contrast(96%)]"
         />
@@ -28,7 +28,7 @@ const SuccessScreen = ({ customDescription, analysis, onReturn }: SuccessScreenP
       </p>
       {analysis && (
         <div className="bg-[#2A2F3C] p-4 rounded-lg mb-6 animate-fade-in">
-          <h3 className="text-white font-semibold mb-2">Spiritual Guidance:</h3>
+          <h3 className="text-white font-semibold mb-2">Angel's Guidance:</h3>
           <p className="text-gray-300 text-sm">{analysis}</p>
         </div>
       )}
