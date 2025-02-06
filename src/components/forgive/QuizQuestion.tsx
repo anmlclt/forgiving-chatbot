@@ -24,9 +24,9 @@ const QuizQuestion = ({ question, options, onAnswer }: QuizQuestionProps) => {
           {options.map((option) => (
             <div
               key={option}
-              className="flex items-center space-x-2 bg-[#3f3f3f] p-3 rounded-lg cursor-pointer hover:bg-gray-800"
+              className="flex items-center bg-[#3f3f3f] p-3 rounded-lg cursor-pointer hover:bg-gray-800"
             >
-              <RadioGroupItem value={option} id={option} className="text-white" />
+              <RadioGroupItem value={option} id={option} className="hidden" />
               <label htmlFor={option} className="text-white cursor-pointer flex-1 text-sm">
                 {option}
               </label>
