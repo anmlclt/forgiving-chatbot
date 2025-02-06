@@ -119,7 +119,7 @@ const Index = () => {
   }
 
   return (
-    <div className={`min-h-screen flex flex-col ${activeTab === 'chat' ? 'bg-[#242424]' : 'bg-[#1A1F2C]'}`}>
+    <div className="min-h-screen flex flex-col bg-[#242424]">
       {activeTab === 'chat' ? (
         showAllChats ? (
           <AllChatsScreen 
