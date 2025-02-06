@@ -25,10 +25,10 @@ serve(async (req) => {
 If the sin description shows genuine remorse and understanding, mark it as "FORGIVEN".
 If there's lack of remorse or understanding, mark it as "NEEDS_REFLECTION".
 
-IMPORTANT: Keep your analysis under 200 characters.
+IMPORTANT: Keep your analysis under 300 characters for forgiven sins and 150 characters for sins that need reflection.
 
 Format your response in JSON with these fields:
-- analysis: your detailed analysis of the sin and guidance (max 200 chars)
+- analysis: your detailed analysis of the sin and guidance (max 300 chars for FORGIVEN, max 150 chars for NEEDS_REFLECTION)
 - forgiveness_status: either "FORGIVEN" or "NEEDS_REFLECTION"`;
 
     const openAIResponse = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -53,9 +53,11 @@ Format your response in JSON with these fields:
     const analysis = JSON.parse(aiData.choices[0].message.content);
     console.log('Parsed Analysis:', analysis);
 
-    // Ensure analysis is not longer than 200 characters
-    if (analysis.analysis.length > 200) {
-      analysis.analysis = analysis.analysis.substring(0, 197) + '...';
+    // Ensure analysis length is correct based on forgiveness status
+    if (analysis.forgiveness_status === 'FORGIVEN' && analysis.analysis.length > 300) {
+      analysis.analysis = analysis.analysis.substring(0, 297) + '...';
+    } else if (analysis.forgiveness_status === 'NEEDS_REFLECTION' && analysis.analysis.length > 150) {
+      analysis.analysis = analysis.analysis.substring(0, 147) + '...';
     }
 
     // Store the analysis in the database
