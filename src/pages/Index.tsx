@@ -68,10 +68,10 @@ const Index = () => {
         </div>
 
         {/* Mobile Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-background border-t h-16 flex items-center justify-around px-4">
+        <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
           <Button
             variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-primary' : 'text-muted-foreground'}`}
+            className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
             onClick={() => setActiveTab('home')}
           >
             <Home className="h-5 w-5" />
@@ -79,7 +79,7 @@ const Index = () => {
           </Button>
           <Button
             variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-primary' : 'text-muted-foreground'}`}
+            className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
             onClick={() => setActiveTab('chat')}
           >
             <MessageSquare className="h-5 w-5" />
@@ -87,7 +87,7 @@ const Index = () => {
           </Button>
           <Button
             variant="ghost"
-            className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-primary' : 'text-muted-foreground'}`}
+            className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
             onClick={() => setActiveTab('profile')}
           >
             <User className="h-5 w-5" />
@@ -99,23 +99,23 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
       <div className="flex-1 p-4 pb-20">
         <div className="max-w-lg mx-auto">
-          <Card className="mb-4">
+          <Card className="mb-4 bg-[#1A1F2C] border border-gray-700">
             <CardHeader className="flex flex-row items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-white">
                 <Church className="h-6 w-6" />
                 <CardTitle>Forgive My Sins</CardTitle>
               </div>
-              <div className="flex items-center gap-2">
-                <Coins className="h-5 w-5 text-yellow-500" />
+              <div className="flex items-center gap-2 text-white">
+                <Coins className="h-5 w-5 text-[#F97316]" />
                 <span className="font-semibold">{credits} credits</span>
               </div>
             </CardHeader>
           </Card>
 
-          <Card className="h-[calc(100vh-250px)]">
+          <Card className="h-[calc(100vh-250px)] bg-[#1A1F2C] border border-gray-700">
             <CardContent className="flex flex-col h-full">
               <div className="flex-1 overflow-y-auto space-y-4 p-4">
                 {messages.map((msg, index) => (
@@ -126,8 +126,8 @@ const Index = () => {
                     <div
                       className={`max-w-[80%] rounded-lg p-3 ${
                         msg.isUser
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted'
+                          ? 'bg-[#F97316] text-white'
+                          : 'bg-[#9b87f5] text-white'
                       }`}
                     >
                       {msg.text}
@@ -136,7 +136,7 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="border-t p-4 mt-auto">
+              <div className="border-t border-gray-700 p-4 mt-auto">
                 <div className="flex gap-2">
                   <Input
                     placeholder={credits > 0 ? "Type your confession..." : "Out of credits"}
@@ -144,10 +144,12 @@ const Index = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     disabled={credits <= 0}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={!message.trim() || credits <= 0}
+                    className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
                   >
                     <SendHorizontal className="h-5 w-5" />
                   </Button>
@@ -159,10 +161,10 @@ const Index = () => {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t h-16 flex items-center justify-around px-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#1A1F2C] border-t border-gray-700 h-16 flex items-center justify-around px-4">
         <Button
           variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-primary' : 'text-muted-foreground'}`}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-[#F97316]' : 'text-gray-400'}`}
           onClick={() => setActiveTab('home')}
         >
           <Home className="h-5 w-5" />
@@ -170,7 +172,7 @@ const Index = () => {
         </Button>
         <Button
           variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-primary' : 'text-muted-foreground'}`}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'chat' ? 'text-[#F97316]' : 'text-gray-400'}`}
           onClick={() => setActiveTab('chat')}
         >
           <MessageSquare className="h-5 w-5" />
@@ -178,7 +180,7 @@ const Index = () => {
         </Button>
         <Button
           variant="ghost"
-          className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-primary' : 'text-muted-foreground'}`}
+          className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-[#F97316]' : 'text-gray-400'}`}
           onClick={() => setActiveTab('profile')}
         >
           <User className="h-5 w-5" />
