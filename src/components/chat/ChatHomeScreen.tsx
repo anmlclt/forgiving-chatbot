@@ -28,8 +28,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       const { data, error } = await supabase
         .from('chat_history')
         .select('*')
-        .order('created_at', { ascending: false })
-        .limit(5);
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching chat history:', error);
@@ -37,7 +36,17 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       }
 
       if (data) {
-        setChatHistory(data);
+        // Filter out duplicates based on message content
+        const uniqueChats = data.reduce((acc: ChatHistory[], current) => {
+          const isDuplicate = acc.some(item => item.message === current.message);
+          if (!isDuplicate) {
+            acc.push(current);
+          }
+          return acc;
+        }, []);
+
+        // Take only the last 5 unique chats
+        setChatHistory(uniqueChats.slice(0, 5));
       }
     };
 
