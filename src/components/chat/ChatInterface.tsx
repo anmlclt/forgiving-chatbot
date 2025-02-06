@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Church, SendHorizontal } from "lucide-react";
+import { Church, SendHorizontal, ThumbsUp, ThumbsDown, Share2, MoreVertical } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 interface ChatMessage {
@@ -16,9 +16,10 @@ interface ChatInterfaceProps {
   message: string;
   onMessageChange: (message: string) => void;
   onSendMessage: () => void;
+  onBack: () => void;
 }
 
-const ChatInterface = ({ messages, message, onMessageChange, onSendMessage }: ChatInterfaceProps) => {
+const ChatInterface = ({ messages, message, onMessageChange, onSendMessage, onBack }: ChatInterfaceProps) => {
   const { toast } = useToast();
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -29,58 +30,81 @@ const ChatInterface = ({ messages, message, onMessageChange, onSendMessage }: Ch
   };
 
   return (
-    <>
-      <Card className="mb-4 bg-[#1A1F2C] border border-gray-700">
-        <CardHeader className="flex flex-row items-center justify-between">
-          <div className="flex items-center gap-2 text-white">
+    <div className="flex flex-col h-screen bg-[#1A1F2C]">
+      <div className="flex items-center justify-between p-4 border-b border-gray-700">
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={onBack}
+            className="text-white"
+          >
             <Church className="h-6 w-6" />
-            <CardTitle>Spiritual Guidance</CardTitle>
+          </Button>
+          <div>
+            <h1 className="text-lg font-semibold text-white">Religious Guidance</h1>
+            <p className="text-sm text-green-500">online</p>
           </div>
-        </CardHeader>
-      </Card>
+        </div>
+        <Button variant="ghost" size="icon" className="text-white">
+          <MoreVertical className="h-6 w-6" />
+        </Button>
+      </div>
 
-      <Card className="h-[calc(100vh-250px)] bg-[#1A1F2C] border border-gray-700">
-        <CardContent className="flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto space-y-4 p-4">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
-                    msg.isUser
-                      ? 'bg-[#F97316] text-white'
-                      : 'bg-[#9b87f5] text-white'
-                  }`}
-                >
-                  {msg.text}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
+          >
+            <div
+              className={`max-w-[80%] rounded-lg p-3 ${
+                msg.isUser
+                  ? 'bg-[#9b87f5] text-white'
+                  : 'bg-[#2A2F3C] text-white'
+              }`}
+            >
+              {msg.text}
+              {!msg.isUser && (
+                <div className="flex gap-2 mt-2">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
+                    <ThumbsUp className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
+                    <ThumbsDown className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
+                    <Share2 className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-gray-700 p-4 mt-auto">
-            <div className="flex gap-2">
-              <Input
-                placeholder="Ask for spiritual guidance..."
-                value={message}
-                onChange={(e) => onMessageChange(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-              />
-              <Button
-                onClick={onSendMessage}
-                disabled={!message.trim()}
-                className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-              >
-                <SendHorizontal className="h-5 w-5" />
-              </Button>
+              )}
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </>
+        ))}
+      </div>
+
+      <div className="p-4 border-t border-gray-700">
+        <div className="flex gap-2">
+          <Input
+            placeholder="Ask for guidance..."
+            value={message}
+            onChange={(e) => onMessageChange(e.target.value)}
+            onKeyPress={handleKeyPress}
+            className="bg-[#2A2F3C] border-none text-white placeholder-gray-400"
+          />
+          <Button
+            onClick={onSendMessage}
+            disabled={!message.trim()}
+            className="bg-[#9b87f5] hover:bg-[#9b87f5]/90 text-white rounded-full"
+          >
+            <SendHorizontal className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

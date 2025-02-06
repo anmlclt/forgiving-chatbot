@@ -56,6 +56,11 @@ const Index = () => {
     }
   };
 
+  const handleBack = () => {
+    setShowWelcome(true);
+    setActiveTab('home');
+  };
+
   if (showWelcome) {
     return (
       <WelcomeScreen 
@@ -72,26 +77,31 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
-      <div className="flex-1 p-4 pb-20">
-        <div className="max-w-lg mx-auto">
-          {activeTab === 'chat' ? (
-            <ChatInterface
-              messages={messages}
-              message={message}
-              onMessageChange={setMessage}
-              onSendMessage={handleSendMessage}
-            />
-          ) : activeTab === 'forgive' ? (
-            <ConfessionFlow 
-              onNavigateToChat={() => handleTabChange('chat')}
-            />
-          ) : null}
-        </div>
-      </div>
-      <BottomNavigation 
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-      />
+      {activeTab === 'chat' ? (
+        <ChatInterface
+          messages={messages}
+          message={message}
+          onMessageChange={setMessage}
+          onSendMessage={handleSendMessage}
+          onBack={handleBack}
+        />
+      ) : (
+        <>
+          <div className="flex-1 p-4 pb-20">
+            <div className="max-w-lg mx-auto">
+              {activeTab === 'forgive' && (
+                <ConfessionFlow 
+                  onNavigateToChat={() => handleTabChange('chat')}
+                />
+              )}
+            </div>
+          </div>
+          <BottomNavigation 
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+          />
+        </>
+      )}
     </div>
   );
 };
