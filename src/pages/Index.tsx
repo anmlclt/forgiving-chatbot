@@ -45,7 +45,17 @@ const Index = () => {
 
   const handleGetStarted = () => {
     setShowWelcome(false);
-    setActiveTab('chat');
+    setActiveTab('forgive');
+  };
+
+  const handleTabChange = (tab: string) => {
+    if (tab === 'home') {
+      setShowWelcome(true);
+      setActiveTab('home');
+    } else {
+      setShowWelcome(false);
+      setActiveTab(tab);
+    }
   };
 
   const quizQuestions = [
@@ -141,7 +151,7 @@ const Index = () => {
         renderBottomNavigation={() => (
           <BottomNavigation 
             activeTab={activeTab}
-            onTabChange={setActiveTab}
+            onTabChange={handleTabChange}
           />
         )}
       />
@@ -167,7 +177,7 @@ const Index = () => {
       </div>
       <BottomNavigation 
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={handleTabChange}
       />
     </div>
   );

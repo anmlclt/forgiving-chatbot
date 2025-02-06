@@ -38,6 +38,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
           </Button>
 
           <Button
+            onClick={() => onGetStarted()}
             className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl w-full"
           >
             <MessageSquare className="h-12 w-12 mb-4 text-[#9b87f5]" />
