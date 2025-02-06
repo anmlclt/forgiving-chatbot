@@ -89,6 +89,7 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
   }
 
   if (currentQuizStep < quizQuestions.length) {
+    const currentQuestion = quizQuestions[currentQuizStep];
     return (
       <>
         {renderTopNavbar()}
@@ -115,3 +116,4 @@ const ConfessionFlow = ({ onNavigateToChat }: ConfessionFlowProps) => {
 };
 
 export default ConfessionFlow;
+
