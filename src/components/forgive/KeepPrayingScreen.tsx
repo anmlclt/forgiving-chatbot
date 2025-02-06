@@ -34,9 +34,9 @@ const KeepPrayingScreen = ({ onChatClick, onReturn }: KeepPrayingScreenProps) =>
         <Button 
           onClick={onReturn}
           variant="outline"
-          className="w-full text-white"
+          className="w-full bg-white text-black hover:bg-gray-100"
         >
-          Return
+          Try Again
         </Button>
       </div>
     </div>

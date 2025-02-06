@@ -19,10 +19,11 @@ const SuccessScreen = ({ customDescription, onReturn }: SuccessScreenProps) => {
       <h2 className="text-2xl font-bold text-white mb-4 text-center animate-fade-in">
         Your Sin Has Been Forgiven
       </h2>
-      <p className="text-gray-300 text-center mb-6 animate-fade-in">
-        {customDescription 
-          ? "Your personal reflection shows true remorse. Go forth and sin no more."
-          : "Your confession has been heard. May peace be with you."}
+      <p className="text-gray-300 text-center mb-4 animate-fade-in">
+        Your confession has been heard. May peace be with you.
+      </p>
+      <p className="text-[#333333] bg-gray-100 p-4 rounded-lg mb-6 text-sm italic animate-fade-in">
+        "{customDescription}"
       </p>
       <Button 
         onClick={onReturn}

@@ -14,7 +14,7 @@ const CustomDescription = ({ description, onDescriptionChange, onSubmit }: Custo
     <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
       <CardHeader>
         <CardTitle className="text-white text-lg">
-          Would you like to add more details about your sin? (Optional)
+          Describe your sin in detail <span className="text-[#F97316]">*</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -23,10 +23,16 @@ const CustomDescription = ({ description, onDescriptionChange, onSubmit }: Custo
           className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 min-h-[120px]"
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
+          required
         />
         <Button
-          onClick={onSubmit}
+          onClick={() => {
+            if (description.trim()) {
+              onSubmit();
+            }
+          }}
           className="w-full bg-[#F97316] hover:bg-[#F97316]/90 text-white"
+          disabled={!description.trim()}
         >
           Seek Forgiveness
         </Button>
