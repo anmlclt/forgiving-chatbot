@@ -3,7 +3,7 @@ import { Menu, User, MessageSquare, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface WelcomeScreenProps {
-  onGetStarted: () => void;
+  onGetStarted: (screen?: string) => void;
   renderBottomNavigation: () => JSX.Element;
 }
 
