@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, User, MessageSquare, Clock, Send } from 'lucide-react';
+import { ArrowLeft, User, MessageSquare, Send } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -129,9 +130,6 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
               onClick={() => onStartChat(chat.message)}
             >
               <div className="flex items-center text-white">
-                <div className="bg-[#6D5DE7] w-8 h-8 rounded-full flex items-center justify-center mr-3">
-                  <MessageSquare className="h-4 w-4" />
-                </div>
                 <span className="text-sm line-clamp-1">{chat.message}</span>
               </div>
             </Card>

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, MessageSquare, Clock } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -71,10 +71,7 @@ const AllChatsScreen = ({ onBack, onChatSelect }: AllChatsScreenProps) => {
             onClick={() => onChatSelect(chat.message)}
           >
             <div className="flex items-center text-white">
-              <div className="bg-[#6D5DE7] w-8 h-8 rounded-full flex items-center justify-center mr-3">
-                <MessageSquare className="h-4 w-4" />
-              </div>
-              <span className="text-sm line-clamp-1 flex-1">{chat.message}</span>
+              <span className="text-sm line-clamp-1">{chat.message}</span>
             </div>
           </Card>
         ))}
