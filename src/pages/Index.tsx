@@ -1,10 +1,12 @@
+
 import { useState } from 'react';
-import { Church, Coins, SendHorizontal, MessageSquare, User, Home, HandHeart, Check, X } from 'lucide-react';
+import { Church, MessageSquare, User, Home, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
+import QuizQuestion from "@/components/forgive/QuizQuestion";
+import CustomDescription from "@/components/forgive/CustomDescription";
+import CrossAnimation from "@/components/forgive/CrossAnimation";
+import SuccessScreen from "@/components/forgive/SuccessScreen";
+import ChatInterface from "@/components/chat/ChatInterface";
 
 const Index = () => {
   const [credits, setCredits] = useState(5);
@@ -92,101 +94,45 @@ const Index = () => {
 
   const renderForgiveContent = () => {
     if (showCross) {
-      return (
-        <div className="fixed inset-0 bg-[#1A1F2C] flex items-center justify-center">
-          <div className="relative">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-2 bg-[#F97316] animate-fade-in" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-40 bg-[#F97316] animate-fade-in" />
-          </div>
-        </div>
-      );
+      return <CrossAnimation />;
     }
 
     if (showSuccess) {
       return (
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-6">
-          <div className="w-24 h-24 rounded-full bg-[#F97316] flex items-center justify-center mb-8 animate-scale-in">
-            <Check className="w-12 h-12 text-white" />
-          </div>
-          <h2 className="text-2xl font-bold text-white mb-4 animate-fade-in">Your Sin Has Been Forgiven</h2>
-          <p className="text-gray-300 text-center mb-6 animate-fade-in">
-            {customDescription 
-              ? "Your personal reflection shows true remorse. Go forth and sin no more."
-              : "Your confession has been heard. May peace be with you."}
-          </p>
-          <Button 
-            onClick={() => {
-              setShowSuccess(false);
-              setCurrentQuizStep(0);
-              setQuizAnswers({
-                sinType: '',
-                severity: '',
-                frequency: '',
-                regret: ''
-              });
-              setCustomDescription('');
-            }}
-            className="bg-[#F97316] hover:bg-[#F97316]/90 text-white animate-scale-in"
-          >
-            Return to Home
-          </Button>
-        </div>
+        <SuccessScreen 
+          customDescription={customDescription}
+          onReturn={() => {
+            setShowSuccess(false);
+            setCurrentQuizStep(0);
+            setQuizAnswers({
+              sinType: '',
+              severity: '',
+              frequency: '',
+              regret: ''
+            });
+            setCustomDescription('');
+          }}
+        />
       );
     }
 
     if (currentQuizStep < quizQuestions.length) {
       const currentQuestion = quizQuestions[currentQuizStep];
       return (
-        <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
-          <CardHeader>
-            <CardTitle className="text-white text-lg">
-              {currentQuestion.question}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RadioGroup
-              onValueChange={handleQuizAnswer}
-              className="space-y-3"
-            >
-              {currentQuestion.options.map((option) => (
-                <div
-                  key={option}
-                  className="flex items-center space-x-2 bg-gray-800/50 p-4 rounded-lg cursor-pointer hover:bg-gray-800"
-                >
-                  <RadioGroupItem value={option} id={option} className="text-[#F97316]" />
-                  <label htmlFor={option} className="text-white cursor-pointer flex-1">
-                    {option}
-                  </label>
-                </div>
-              ))}
-            </RadioGroup>
-          </CardContent>
-        </Card>
+        <QuizQuestion
+          question={currentQuestion.question}
+          options={currentQuestion.options}
+          onAnswer={handleQuizAnswer}
+        />
       );
     }
 
     return (
-      <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
-        <CardHeader>
-          <CardTitle className="text-white text-lg">
-            Would you like to add more details about your sin? (Optional)
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Textarea
-            placeholder="Share your thoughts..."
-            className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 min-h-[120px]"
-            value={customDescription}
-            onChange={(e) => setCustomDescription(e.target.value)}
-          />
-          <Button
-            onClick={handleSubmitSin}
-            className="w-full bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-          >
-            Seek Forgiveness
-          </Button>
-        </CardContent>
-      </Card>
+      <CustomDescription
+        description={customDescription}
+        onDescriptionChange={setCustomDescription}
+        onSubmit={handleSubmitSin}
+      />
     );
   };
 
@@ -269,63 +215,13 @@ const Index = () => {
       <div className="flex-1 p-4 pb-20">
         <div className="max-w-lg mx-auto">
           {activeTab === 'chat' ? (
-            <>
-              <Card className="mb-4 bg-[#1A1F2C] border border-gray-700">
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div className="flex items-center gap-2 text-white">
-                    <Church className="h-6 w-6" />
-                    <CardTitle>Forgive My Sins</CardTitle>
-                  </div>
-                  <div className="flex items-center gap-2 text-white">
-                    <Coins className="h-5 w-5 text-[#F97316]" />
-                    <span className="font-semibold">{credits} credits</span>
-                  </div>
-                </CardHeader>
-              </Card>
-
-              <Card className="h-[calc(100vh-250px)] bg-[#1A1F2C] border border-gray-700">
-                <CardContent className="flex flex-col h-full">
-                  <div className="flex-1 overflow-y-auto space-y-4 p-4">
-                    {messages.map((msg, index) => (
-                      <div
-                        key={index}
-                        className={`flex ${msg.isUser ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div
-                          className={`max-w-[80%] rounded-lg p-3 ${
-                            msg.isUser
-                              ? 'bg-[#F97316] text-white'
-                              : 'bg-[#9b87f5] text-white'
-                          }`}
-                        >
-                          {msg.text}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="border-t border-gray-700 p-4 mt-auto">
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder={credits > 0 ? "Type your confession..." : "Out of credits"}
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        disabled={credits <= 0}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                        className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-                      />
-                      <Button
-                        onClick={handleSendMessage}
-                        disabled={!message.trim() || credits <= 0}
-                        className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-                      >
-                        <SendHorizontal className="h-5 w-5" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
+            <ChatInterface
+              messages={messages}
+              credits={credits}
+              message={message}
+              onMessageChange={setMessage}
+              onSendMessage={handleSendMessage}
+            />
           ) : activeTab === 'forgive' ? (
             renderForgiveContent()
           ) : null}
