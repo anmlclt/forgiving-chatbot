@@ -34,6 +34,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
         .from('chat_history')
         .select('*')
         .eq('user_id', user.id)
+        .eq('is_user_message', true) // Only fetch user messages
         .order('created_at', { ascending: false })
         .limit(5);
 
@@ -43,18 +44,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) 
       }
 
       if (data) {
-        // Create a Map to store unique messages with their latest timestamp
-        const uniqueMessages = new Map();
-        data.forEach((chat) => {
-          if (!uniqueMessages.has(chat.message) || 
-              new Date(chat.created_at) > new Date(uniqueMessages.get(chat.message).created_at)) {
-            uniqueMessages.set(chat.message, chat);
-          }
-        });
-
-        // Convert Map values back to array
-        const uniqueChats = Array.from(uniqueMessages.values());
-        setChatHistory(uniqueChats);
+        setChatHistory(data);
       }
     };
 
