@@ -1,5 +1,5 @@
 
-import { Menu, User, Church, MessageSquare, HandHeart } from 'lucide-react';
+import { Menu, User, MessageSquare, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface WelcomeScreenProps {
@@ -27,30 +27,22 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
         </h1>
 
         {/* Grid of Large Buttons */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-4">
           <Button
             onClick={() => onGetStarted()}
-            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl"
+            className="flex flex-col items-start justify-center h-48 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-8 rounded-xl w-full"
           >
-            <HandHeart className="h-12 w-12 mb-4 text-[#9b87f5]" />
-            <span className="text-lg font-medium">Forgive</span>
-            <span className="text-sm text-gray-400 mt-1">Seek absolution</span>
+            <HandHeart className="h-16 w-16 mb-6 text-[#9b87f5]" />
+            <span className="text-2xl font-medium mb-2">Forgive a sin</span>
+            <span className="text-base text-gray-400">Seek absolution and find peace through virtual confession</span>
           </Button>
 
           <Button
-            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl"
+            className="flex flex-col items-start justify-center h-48 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-8 rounded-xl w-full"
           >
-            <Church className="h-12 w-12 mb-4 text-[#9b87f5]" />
-            <span className="text-lg font-medium">Sin</span>
-            <span className="text-sm text-gray-400 mt-1">Record your sins</span>
-          </Button>
-
-          <Button
-            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl col-span-2"
-          >
-            <MessageSquare className="h-12 w-12 mb-4 text-[#9b87f5]" />
-            <span className="text-lg font-medium">Chat with AI Priest</span>
-            <span className="text-sm text-gray-400 mt-1">Seek guidance</span>
+            <MessageSquare className="h-16 w-16 mb-6 text-[#9b87f5]" />
+            <span className="text-2xl font-medium mb-2">Chat with AI Priest</span>
+            <span className="text-base text-gray-400">Seek guidance and spiritual advice</span>
           </Button>
         </div>
       </div>
