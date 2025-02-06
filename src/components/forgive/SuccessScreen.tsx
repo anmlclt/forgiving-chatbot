@@ -11,8 +11,8 @@ const SuccessScreen = ({ customDescription, onReturn }: SuccessScreenProps) => {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-6">
       <div className="w-24 h-24 mb-8 animate-scale-in">
         <img 
-          src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/hands.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvaGFuZHMuc3ZnIiwiaWF0IjoxNzM4ODA1ODg0LCJleHAiOjE3NzAzNDE4ODR9.lcIrjafXTBLzFQge1sRQMB0hnXhm6ao9HLnAd7mV3XA"
-          alt="Praying hands"
+          src="https://cczcueogekivqbfnrtaf.supabase.co/storage/v1/object/sign/Images/angel.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJJbWFnZXMvYW5nZWwuc3ZnIiwiaWF0IjoxNzM4ODA2MDUyLCJleHAiOjE3NzAzNDIwNTJ9.0F94X5vgzRMo36p_GYCRPDMHaLCGCDZ3jCWwHW7M8x4"
+          alt="Angel icon"
           className="w-full h-full [filter:invert(48%)_sepia(94%)_saturate(751%)_hue-rotate(346deg)_brightness(101%)_contrast(96%)]"
         />
       </div>
