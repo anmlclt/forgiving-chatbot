@@ -1,5 +1,5 @@
 
-import { Church } from 'lucide-react';
+import { Menu, User, Church, MessageSquare, HandHeart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface WelcomeScreenProps {
@@ -9,36 +9,52 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenProps) => {
   return (
-    <div className="min-h-screen bg-[#1A1F2C] flex flex-col items-center justify-between p-6">
-      <div className="w-full max-w-md flex-1 flex flex-col items-center justify-center text-white space-y-6">
-        <div className="w-48 h-48 rounded-full bg-[#9b87f5] flex items-center justify-center mb-8">
-          <Church className="w-24 h-24 text-white" />
-        </div>
-        
-        <h1 className="text-3xl font-bold text-center mb-2">
-          Ask for Forgiveness
-        </h1>
-        
-        <p className="text-center text-gray-300 max-w-xs">
-          Connect with divine guidance through our virtual confession booth. Find peace and forgiveness, available 24/7.
-        </p>
-
-        <div className="flex gap-2 justify-center mt-4">
-          {[0, 1, 2, 3].map((dot) => (
-            <div
-              key={dot}
-              className={`h-2 rounded-full ${dot === 1 ? 'w-8 bg-[#F97316]' : 'w-2 bg-gray-600'}`}
-            />
-          ))}
-        </div>
-
-        <Button
-          onClick={onGetStarted}
-          className="w-full max-w-xs mt-8 bg-[#F97316] hover:bg-[#F97316]/90 text-white"
-        >
-          GET STARTED
+    <div className="min-h-screen bg-[#1A1F2C] flex flex-col">
+      {/* Header */}
+      <div className="flex justify-between items-center p-4">
+        <Button variant="ghost" className="text-white p-2">
+          <Menu className="h-6 w-6" />
+        </Button>
+        <Button variant="ghost" className="text-white p-2">
+          <User className="h-6 w-6" />
         </Button>
       </div>
+
+      {/* Main Content */}
+      <div className="flex-1 px-6 py-8">
+        <h1 className="text-4xl font-bold text-white mb-8">
+          Welcome to Confess
+        </h1>
+
+        {/* Grid of Large Buttons */}
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            onClick={() => onGetStarted()}
+            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl"
+          >
+            <HandHeart className="h-12 w-12 mb-4 text-[#9b87f5]" />
+            <span className="text-lg font-medium">Forgive</span>
+            <span className="text-sm text-gray-400 mt-1">Seek absolution</span>
+          </Button>
+
+          <Button
+            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl"
+          >
+            <Church className="h-12 w-12 mb-4 text-[#9b87f5]" />
+            <span className="text-lg font-medium">Sin</span>
+            <span className="text-sm text-gray-400 mt-1">Record your sins</span>
+          </Button>
+
+          <Button
+            className="flex flex-col items-center justify-center h-40 bg-[#2A2F3C] hover:bg-[#2A2F3C]/90 text-white p-6 rounded-xl col-span-2"
+          >
+            <MessageSquare className="h-12 w-12 mb-4 text-[#9b87f5]" />
+            <span className="text-lg font-medium">Chat with AI Priest</span>
+            <span className="text-sm text-gray-400 mt-1">Seek guidance</span>
+          </Button>
+        </div>
+      </div>
+
       {renderBottomNavigation()}
     </div>
   );
