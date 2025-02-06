@@ -89,7 +89,7 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
               <span className="text-[#F7F7F7]">Welcome to Confess</span>
             )}
           </h1>
-          <p className="text-[#F7F7F7]/80 text-lg">
+          <p className="text-[#F7F7F7]/80 text-base">
             Find peace through confession and guidance. Choose an option below to begin your spiritual journey.
           </p>
         </div>
