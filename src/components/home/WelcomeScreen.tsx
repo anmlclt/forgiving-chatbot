@@ -12,10 +12,10 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
     <div className="min-h-screen bg-[#D3E7FF] flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
-        <Button variant="ghost" className="text-[#f7f7f7] p-2">
+        <Button variant="ghost" className="text-[#6C5DE7] p-2">
           <Menu className="h-6 w-6" />
         </Button>
-        <Button variant="ghost" className="text-[#f7f7f7] p-2">
+        <Button variant="ghost" className="text-[#6C5DE7] p-2">
           <User className="h-6 w-6" />
         </Button>
       </div>
