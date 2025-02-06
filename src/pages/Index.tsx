@@ -23,6 +23,7 @@ const Index = () => {
   });
   const [customDescription, setCustomDescription] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showCross, setShowCross] = useState(false);
 
   const handleSendMessage = () => {
     if (!message.trim() || credits <= 0) return;
@@ -82,18 +83,33 @@ const Index = () => {
   };
 
   const handleSubmitSin = () => {
-    setShowSuccess(true);
+    setShowCross(true);
+    setTimeout(() => {
+      setShowCross(false);
+      setShowSuccess(true);
+    }, 2000);
   };
 
   const renderForgiveContent = () => {
+    if (showCross) {
+      return (
+        <div className="fixed inset-0 bg-[#1A1F2C] flex items-center justify-center">
+          <div className="relative">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-2 bg-[#F97316] animate-fade-in" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-40 bg-[#F97316] animate-fade-in" />
+          </div>
+        </div>
+      );
+    }
+
     if (showSuccess) {
       return (
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-100px)] p-6">
-          <div className="w-24 h-24 rounded-full bg-[#F97316] flex items-center justify-center mb-8">
+        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] p-6">
+          <div className="w-24 h-24 rounded-full bg-[#F97316] flex items-center justify-center mb-8 animate-scale-in">
             <Check className="w-12 h-12 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-4">Your Sin Has Been Forgiven</h2>
-          <p className="text-gray-300 text-center mb-6">
+          <h2 className="text-2xl font-bold text-white mb-4 animate-fade-in">Your Sin Has Been Forgiven</h2>
+          <p className="text-gray-300 text-center mb-6 animate-fade-in">
             {customDescription 
               ? "Your personal reflection shows true remorse. Go forth and sin no more."
               : "Your confession has been heard. May peace be with you."}
@@ -110,7 +126,7 @@ const Index = () => {
               });
               setCustomDescription('');
             }}
-            className="bg-[#F97316] hover:bg-[#F97316]/90 text-white"
+            className="bg-[#F97316] hover:bg-[#F97316]/90 text-white animate-scale-in"
           >
             Return to Home
           </Button>
