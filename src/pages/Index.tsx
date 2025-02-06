@@ -82,6 +82,11 @@ const Index = () => {
     ]);
   };
 
+  const handleNavigateToHome = () => {
+    setShowWelcome(true);
+    setActiveTab('home');
+  };
+
   if (showWelcome) {
     return (
       <WelcomeScreen 
@@ -103,6 +108,7 @@ const Index = () => {
           <ChatHomeScreen 
             onStartChat={handleSendMessage} 
             messages={messages}
+            onBack={handleNavigateToHome}
           />
         ) : (
           <ChatInterface

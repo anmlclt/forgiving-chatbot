@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Menu, User, MessageSquare, MicIcon, SendIcon, Clock } from 'lucide-react';
+import { ArrowLeft, User, MessageSquare, MicIcon, SendIcon, Clock } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface ChatHomeScreenProps {
   onStartChat: (message: string) => void;
   messages: Array<{ text: string; isUser: boolean }>;
+  onBack: () => void;
 }
 
 interface ChatHistory {
@@ -18,7 +19,7 @@ interface ChatHistory {
   is_user_message: boolean;
 }
 
-const ChatHomeScreen = ({ onStartChat, messages }: ChatHomeScreenProps) => {
+const ChatHomeScreen = ({ onStartChat, messages, onBack }: ChatHomeScreenProps) => {
   const [message, setMessage] = React.useState('');
   const [chatHistory, setChatHistory] = useState<ChatHistory[]>([]);
 
@@ -57,8 +58,12 @@ const ChatHomeScreen = ({ onStartChat, messages }: ChatHomeScreenProps) => {
   return (
     <div className="min-h-screen bg-[#1A1F2C] p-4">
       <div className="flex justify-between items-center mb-6">
-        <Button variant="ghost" className="text-white">
-          <Menu className="h-6 w-6" />
+        <Button 
+          variant="ghost" 
+          className="text-white p-2" 
+          onClick={onBack}
+        >
+          <ArrowLeft className="h-6 w-6" />
         </Button>
         <Button variant="ghost" className="text-white">
           <User className="h-6 w-6" />
