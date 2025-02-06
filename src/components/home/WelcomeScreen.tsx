@@ -78,16 +78,21 @@ const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenPr
 
       {/* Main Content */}
       <div className="flex-1 px-6 py-8">
-        <h1 className="text-4xl font-bold mb-8">
-          {profile?.first_name ? (
-            <span>
-              <span className="text-[#F7F7F7]">Hi, </span>
-              <span className="text-[#6C5DE7]">{profile.first_name}!</span>
-            </span>
-          ) : (
-            <span className="text-[#F7F7F7]">Welcome to Confess</span>
-          )}
-        </h1>
+        <div className="space-y-2 mb-8">
+          <h1 className="text-4xl font-bold">
+            {profile?.first_name ? (
+              <span>
+                <span className="text-[#F7F7F7]">Hi, </span>
+                <span className="text-[#6C5DE7]">{profile.first_name}!</span>
+              </span>
+            ) : (
+              <span className="text-[#F7F7F7]">Welcome to Confess</span>
+            )}
+          </h1>
+          <p className="text-[#F7F7F7]/80 text-lg">
+            Find peace through confession and guidance. Choose an option below to begin your spiritual journey.
+          </p>
+        </div>
 
         {/* Grid of Buttons */}
         <div className="grid grid-cols-1 gap-4">
