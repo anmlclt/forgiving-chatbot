@@ -7,6 +7,13 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/auth/AuthProvider";
 
+interface ChatHomeScreenProps {
+  onStartChat: (message: string) => void;
+  messages: Array<{ text: string; isUser: boolean }>;
+  onBack: () => void;
+  onViewAllChats: () => void;
+}
+
 interface ChatHistory {
   id: string;
   message: string;
@@ -60,26 +67,26 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
   ];
 
   return (
-    <div className="min-h-screen bg-[#D3E4FD] p-4">
+    <div className="min-h-screen bg-[#1A1F2C] p-4">
       <div className="flex justify-between items-center mb-6">
         <Button 
           variant="ghost" 
-          className="text-[#1c20fe] p-2" 
+          className="text-white p-2" 
           onClick={onBack}
         >
           <ArrowLeft className="h-6 w-6" />
         </Button>
-        <Button variant="ghost" className="text-[#1c20fe]">
+        <Button variant="ghost" className="text-white">
           <User className="h-6 w-6" />
         </Button>
       </div>
 
-      <Card className="bg-[#1c20fe] text-white p-6 rounded-xl mb-6">
+      <Card className="bg-[#6D5DE7] text-white p-6 rounded-xl mb-6">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-xl font-bold mb-2">Premium Plan</h2>
             <p className="text-sm opacity-90">Unlock your AI priest & get all premium features</p>
-            <Button variant="secondary" className="mt-4 bg-white text-[#1c20fe] hover:bg-white/90">
+            <Button variant="secondary" className="mt-4 bg-white text-[#6D5DE7] hover:bg-white/90">
               Upgrade plan
             </Button>
           </div>
@@ -90,15 +97,15 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
         {predefinedPrompts.map((prompt, index) => (
           <Card 
             key={index}
-            className="bg-[#1c20fe] p-4 rounded-xl cursor-pointer hover:bg-[#1c20fe]/90 transition-colors"
+            className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
             onClick={() => onStartChat(prompt.prompt)}
           >
             <div className="flex flex-col h-full">
-              <div className="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center mb-4">
+              <div className="bg-[#6D5DE7] w-10 h-10 rounded-full flex items-center justify-center mb-4">
                 {prompt.icon}
               </div>
               <h3 className="text-white font-medium mb-1">{prompt.text}</h3>
-              <p className="text-sm text-white/70">{prompt.description}</p>
+              <p className="text-sm text-gray-400">{prompt.description}</p>
             </div>
           </Card>
         ))}
@@ -106,10 +113,10 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
 
       <div className="mb-4">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-[#1c20fe] text-lg font-medium">Recent history</h3>
+          <h3 className="text-white text-lg font-medium">Recent history</h3>
           <Button 
             variant="ghost" 
-            className="text-[#1c20fe]"
+            className="text-[#6D5DE7]"
             onClick={onViewAllChats}
           >
             See all
@@ -119,7 +126,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
           {chatHistory.map((chat) => (
             <Card 
               key={chat.id}
-              className="bg-[#1c20fe] p-3 rounded-xl cursor-pointer hover:bg-[#1c20fe]/90 transition-colors"
+              className="bg-[#2A2F3C] p-3 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
               onClick={() => onStartChat(chat.message)}
             >
               <div className="flex items-center text-white">
@@ -130,13 +137,13 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#D3E4FD]">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#1A1F2C]">
         <div className="flex gap-2">
           <Input
             placeholder="Enter a prompt here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="bg-[#1c20fe] border-none text-white placeholder-white/70"
+            className="bg-[#2A2F3C] border-none text-white placeholder-gray-400"
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 handleSendMessage();
@@ -145,7 +152,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
           />
           <Button
             onClick={handleSendMessage}
-            className="bg-[#1c20fe] hover:bg-[#1c20fe]/90 text-white rounded-full"
+            className="bg-[#6D5DE7] hover:bg-[#6D5DE7]/90 text-white rounded-full"
           >
             <Send className="h-5 w-5" />
           </Button>
