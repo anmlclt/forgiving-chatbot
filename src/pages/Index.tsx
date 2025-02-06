@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 const Index = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([
-    { text: "Greetings, my child. I am here to provide spiritual guidance and support on your journey of faith. How may I assist you today?", isUser: false }
+    { text: "Welcome, dear soul. I am here to provide spiritual guidance and support on your journey of faith. How may I assist you today?", isUser: false }
   ]);
   const [activeTab, setActiveTab] = useState('home');
   const [showWelcome, setShowWelcome] = useState(true);
