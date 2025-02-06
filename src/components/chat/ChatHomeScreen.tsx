@@ -97,7 +97,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
         {predefinedPrompts.map((prompt, index) => (
           <Card 
             key={index}
-            className="bg-[#2A2F3C] p-4 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+            className="bg-[#3f3f3f] p-4 rounded-xl cursor-pointer hover:bg-[#3f3f3f]/80 transition-colors"
             onClick={() => onStartChat(prompt.prompt)}
           >
             <div className="flex flex-col h-full">
@@ -126,7 +126,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
           {chatHistory.map((chat) => (
             <Card 
               key={chat.id}
-              className="bg-[#2A2F3C] p-3 rounded-xl cursor-pointer hover:bg-[#2A2F3C]/80 transition-colors"
+              className="bg-[#3f3f3f] p-3 rounded-xl cursor-pointer hover:bg-[#3f3f3f]/80 transition-colors"
               onClick={() => onStartChat(chat.message)}
             >
               <div className="flex items-center text-white">
@@ -143,7 +143,7 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
             placeholder="Enter a prompt here..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="bg-[#2A2F3C] border-none text-white placeholder-gray-400"
+            className="bg-[#3f3f3f] border-none text-white placeholder-gray-400"
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 handleSendMessage();
@@ -163,3 +163,4 @@ const ChatHomeScreen = ({ onStartChat, messages, onBack, onViewAllChats }: ChatH
 };
 
 export default ChatHomeScreen;
+
