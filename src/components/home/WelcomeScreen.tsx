@@ -9,7 +9,7 @@ interface WelcomeScreenProps {
 
 const WelcomeScreen = ({ onGetStarted, renderBottomNavigation }: WelcomeScreenProps) => {
   return (
-    <div className="min-h-screen bg-[#D3E4FD] flex flex-col">
+    <div className="min-h-screen bg-[#191919] flex flex-col">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
         <Button variant="ghost" className="text-[#1C20FE] p-2">
