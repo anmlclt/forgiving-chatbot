@@ -10,9 +10,9 @@ interface QuizQuestionProps {
 
 const QuizQuestion = ({ question, options, onAnswer }: QuizQuestionProps) => {
   return (
-    <Card className="bg-[#242424] border border-gray-700 mx-4">
+    <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
       <CardHeader>
-        <CardTitle className="text-[#242424]">
+        <CardTitle className="text-white text-lg">
           {question}
         </CardTitle>
       </CardHeader>
@@ -26,8 +26,8 @@ const QuizQuestion = ({ question, options, onAnswer }: QuizQuestionProps) => {
               key={option}
               className="flex items-center space-x-2 bg-gray-800/50 p-4 rounded-lg cursor-pointer hover:bg-gray-800"
             >
-              <RadioGroupItem value={option} id={option} className="text-[#242424]" />
-              <label htmlFor={option} className="text-[#242424] cursor-pointer flex-1">
+              <RadioGroupItem value={option} id={option} className="text-[#F97316]" />
+              <label htmlFor={option} className="text-white cursor-pointer flex-1">
                 {option}
               </label>
             </div>
@@ -39,4 +39,3 @@ const QuizQuestion = ({ question, options, onAnswer }: QuizQuestionProps) => {
 };
 
 export default QuizQuestion;
-
