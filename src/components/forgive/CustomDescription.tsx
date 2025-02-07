@@ -18,16 +18,16 @@ const CustomDescription = ({
   isAnalyzing = false 
 }: CustomDescriptionProps) => {
   return (
-    <Card className="bg-[#1A1F2C] border border-gray-700 mx-4">
+    <Card className="bg-[#1A1F2C] border border-gray-700/50 mx-4">
       <CardHeader>
         <CardTitle className="text-white text-lg">
-          Describe your sin in detail <span className="text-[#F97316]">*</span>
+          Describe your sin in detail <span className="text-[#9b87f5]">*</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <Textarea
           placeholder="Share your thoughts..."
-          className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 min-h-[120px]"
+          className="bg-[#242424] border-gray-700/50 text-white placeholder-gray-400 min-h-[120px]"
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
           required
@@ -39,7 +39,7 @@ const CustomDescription = ({
               onSubmit();
             }
           }}
-          className="w-full bg-[#F97316] hover:bg-[#F97316]/90 text-white"
+          className="w-full bg-[#9b87f5] hover:bg-[#7E69AB] text-white transition-colors"
           disabled={!description.trim() || isAnalyzing}
         >
           {isAnalyzing ? (
