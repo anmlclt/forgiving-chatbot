@@ -2,7 +2,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.10853e98fcff44b28e33597a33c8e3de',
+  appId: 'com.lovable.forgivingchatbot',
   appName: 'forgiving-chatbot',
   webDir: 'dist',
   server: {
